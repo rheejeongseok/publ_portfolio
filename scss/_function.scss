@@ -1,0 +1,1902 @@
+@use 'sass:math';
+
+// 반응형 사이즈 pc용
+
+@function vw_pc($val, $view) {
+	@return math.div(calc($val * $view) , 1920) * 1px;
+}
+
+// 반응형 사이즈 mo용
+
+@function vw_mo($val) {
+	@return math.div($val, 3.6) * 1vw;
+}
+
+@function vw_mo_chn($val) {
+	$x : math.div($val * 3.60 , 7.68);
+	@return math.div($x, 3.6) * 1vw;
+}
+
+@function vw_mo_chn2($val) {
+	$x : math.div($val * 3.60 , 7.5);
+	// $x : calc($val * 3.75);
+	@return math.div($x, 3.6) * 1vw;
+}
+
+@function vw_mo_chn3($val) {
+	$x : math.div($val * 3.60 , 3.75);
+	// $x : calc($val * 3.75);
+	@return math.div($x, 3.6) * 1vw;
+}
+
+/* 
+
+375 : X = 360 : Y;
+
+360x / 375 = y; 
+
+기존 값을 해상도로 나누는데
+다른 해상도에 적용했던 값을
+현재 해상도 비율에 맞추서 변경 하려고 하는데
+
+*/
+
+// 폰트 설정
+
+@mixin fs($size, $weight:$F_LIGHT, $color:#222, $lh:null){
+	
+	@if unit($size) == "px"{
+		font-size:$size;	
+	}@else {
+		font-size:vw_mo($size);
+	}
+	font-weight:$weight;
+	color:$color;
+	line-height:$lh;
+}
+
+// 사이즈 값
+
+@mixin wh($w, $h){
+
+	@if unit($w) == "%" or unit($w) == "px" {
+		width:$w;
+	}@else {
+		width:vw_mo($w);
+	}
+
+	@if unit($h) == "%" or unit($h) == "px" {
+		height:$h;
+	}@else {
+		height:vw_mo($h);
+	}
+}
+
+// 백그라운드
+
+@mixin bg($url, $opt:no-repeat, $size:100% 100%){
+	background:$url $opt;
+	background-size:$size;
+}
+
+// 보더 값
+
+@mixin border($size, $type, $color){
+	@if unit($size) == "px" {
+		border: $size $type $color;
+	}@else {
+		border: vw_mo($size) $type $color;
+	}
+}
+
+// 포지션 설정
+
+@mixin pos($type, $t:null, $r:null, $b:null, $l:null, $trans:null){
+	position:$type; top:$t; bottom:$b; left:$l; right:$r; transform:$trans;
+}
+
+// 말줄임
+
+@mixin ellipsis($line) {
+	@if $line == 1 {
+		text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+	}@else {
+		display:-webkit-box; word-wrap:break-word; -webkit-line-clamp:$line; -webkit-box-orient:vertical; text-overflow:ellipsis; overflow:hidden;
+	}
+}
+
+// 이미지 설정
+
+@mixin img_full(){
+	@include wh(100%, 100%); object-fit:cover;
+}
+
+// 마진 패딩 설정
+
+@mixin mg($t:0, $b:0, $l:0, $r:0){
+	margin:$t $r $b $l;
+}
+
+@mixin pd($t:0, $b:0, $l:0, $r:0){
+	padding:$t $r $b $l;
+}
+
+// flex 설정
+@mixin flx($d:flex, $a:center, $j:center){
+	display:$d; align-items:$a; justify-content:$j;
+}
+
+// 인풋 숨김
+@mixin hideInput(){
+	input {
+		@include wh(100%, 100%); appearance:none; position:absolute; left:0; top:0;
+	}
+}
+
+@mixin blind(){
+	position:absolute; top:0; left:0; @include wh(100%, 100%); z-index:-1; background:rgba(0,0,0,0.7);
+}
+
+// 스크롤 팝업 pc
+
+@mixin scrollPopup_pc($cls, $w:980px, $popupHeight:860px, $headHeight:72px){
+	.#{$cls} {
+		position:fixed; top:0; left:0; @include wh(0, 0); z-index:-1; opacity:0; user-select:none; overflow:hidden; @include flx();
+
+		.popup_blind {
+			@include blind();
+		}
+
+		.popup_layer {
+			position:relative; width:$w; height:$popupHeight; background:white; border-radius:8px;
+
+			.popup_title {
+				height:$headHeight; display:flex; align-items:center; position:relative; justify-content:center;
+
+				.tit {
+					@include fs(20px, 700, $c_222);
+				}
+
+				.popup_close {
+					position:absolute; right:20px; top:50%; transform:translateY(-50%); user-select:none; color:transparent; @include bg(url(../images/common/ico_btn_popup_close_pc.svg)); @include wh(36px, 36px);
+				}
+			}
+
+			.popup_container {
+				position:absolute; top:$headHeight; left:0; right:0; bottom:0;
+
+				.content_inn {
+					height:100%;
+
+					.content_scroll {
+						position:absolute; top:0; left:4px; right:4px; bottom:144px; overflow-x:hidden; overflow-y:scroll; padding:0 26px;
+
+						.section {
+							width:100%;
+						}
+					}
+				}
+			}
+
+			.btn_confirm {
+				position:absolute; bottom:40px; left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; justify-content:center; background:$c_main; border-radius:8px; @include fs(16px, 700, white); @include wh(240px, 48px);
+			}
+		}
+
+		&.on {
+			opacity:1; z-index:1000; user-select:auto; @include wh(100%, 100%); overflow:auto;
+	
+			.popup_layer {
+				animation: opacity 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+			}
+	
+			@keyframes opacity {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+// 스크롤 팝업 mo
+
+@mixin scrollPopup_mo($cls, $popupHeight:100%, $headHeight:vw_mo(48)){
+	.#{$cls} {
+		position:fixed; top:0; left:0; @include wh(100%, 100%); display:block; opacity:0; z-index:-1; user-select:none;
+
+		.popup_blind {
+			@include blind();
+		}
+
+		.popup_layer {
+			position:absolute; left:0; bottom:0; height:$popupHeight; width:100%; background:white; border-radius:0; top:initial; transform:none; bottom:-100%; transition:0.5s;
+
+			.popup_title {
+				height:$headHeight; display:flex; align-items:center; position:relative; justify-content:center;
+
+				.tit {
+					@include fs(14, 700, $c_222);
+				}
+
+				.popup_close {
+					position:absolute; right:vw_mo(20); top:50%; transform:translateY(-50%); user-select:none; color:transparent; @include bg(url(../images/common/ico_btn_popup_close.svg)); @include wh(24, 24);
+				}
+			}
+
+			.popup_container {
+				position:absolute; top:$headHeight; left:0; right:0; bottom:vw_mo(108);
+
+				.content_inn {
+					height:100%;
+
+					.content_scroll {
+						position:absolute; top:0; left:0; right:0; bottom:0; overflow-x:hidden; overflow-y:scroll; padding:0;
+					}
+				}
+			}
+
+			.btn_confirm {
+				position:absolute; bottom:vw_mo(20); left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; justify-content:center; background:$c_main; border-radius:vw_mo(8); @include fs(14, 700, white); @include wh(320, 48);
+			}
+
+			.btn_wrap {
+				position:absolute; bottom:vw_mo(20); left:50%; transform:translateX(-50%); display:inline-flex; align-items:center; justify-content:center;@include wh(100%, 48); padding:0 vw_mo(20);
+
+				.btn_reset {
+					width:vw_mo(96); @include mg($r:vw_mo(10));
+				}
+	
+				.btn_complete {
+					width:vw_mo(214);
+	
+					.num {
+						@include mg($l:vw_mo(2));
+					}
+				}
+			}
+		}
+
+		&.on {
+			opacity:1; z-index:1000; user-select:auto;
+
+			.popup_layer {
+				bottom:0;
+			}
+		}
+	}
+}
+
+@mixin carSortWrap_pc {
+	.car_sort_wrap {
+		@include flx($j:space-between);
+	
+		.total {
+			@include fs(16px, 500, $c_222);
+	
+			.num {
+				@include fs(16px, 500, $c_main);
+			}
+		}
+
+		.tab_wrap {
+			font-size:0;
+
+			.tab {
+				@include fs(20px, 800, $c_999);
+
+				&:not(:last-child) {
+					margin-right:16px;
+				}
+
+				&.on {
+					color:$c_222;
+				}
+			}
+
+			.total {
+				.num {
+					@include fs(20px, 800, $c_999);
+				}
+
+				&.on {
+					.num {
+						color:$c_222;
+					}
+				}
+			}
+		}
+	
+		.sort {
+			@include flx();
+	
+			li {
+				&:not(:last-child) {
+					@include mg($r:10px);
+				}
+	
+				a {
+					height:30px; @include pd($l:12px, $r:12px); @include flx(); border-radius:4px; border:1px solid #CDD2D8;
+	
+					span {
+						@include fs(13px, 500, $c_555); position:relative;
+					}
+				}
+	
+				.on {
+					span {
+						color:$c_main;
+					}
+	
+					&.u, &.d {
+						span {
+							&::before {
+								@include bg(url(../images/display/img_sort_arr_on.svg));
+							}
+						}
+					}
+				}
+	
+				.u, .d {
+					span {
+						@include pd($r:15px);
+	
+						&::before {
+							content:''; @include pos($type:absolute, $t:50%, $r:0, $trans:translateY(-50%)); @include bg(url(../images/display/img_sort_arr_off.svg)); @include wh(9px, 11px); transform-origin:top;
+						}
+					}
+				}
+	
+				.u {
+					span {
+						&::before {
+							transform:rotate(180deg) translateY(-50%);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin carItem_type_pc(){
+	.car_item_type {
+		@include pos($type:absolute, $t:0, $l:0); display:flex;
+
+		.type {
+			height:26px; @include pd($l:6px, $r:6px); border-bottom-right-radius:4px; @include flx();
+
+			span {
+				font-size:12px; font-weight:600;
+			}
+
+			&.ai {
+				background:$c_main;
+
+				span {
+					color:white;
+				}
+			}
+
+			&.certified {
+				background:$g_point;
+
+				span {
+					color:$c_main; position:relative; @include pd($l:14px);
+
+					&::before {
+						content:''; @include wh(10.7px, 12px); @include bg(url(../images/common/ico_car_type_certified.svg)); @include pos($type:absolute, $l:0, $t:50%, $trans:translateY(-50%));
+					}
+				}
+			}
+
+			&.sh {
+				background:#47C8FF;
+
+				span {
+					color:white;
+				}
+			}
+
+			&.hc {
+				@include bg(#222 url(../images/common/img_type_hc.png),center center no-repeat,$size:62px 11px); @include wh(74px, 26px);
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+
+			&.lc {
+				@include bg(#ED1D24 url(../images/common/img_type_lc.png),center center no-repeat,$size:120px 16px); @include wh(132px, 26px);
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+
+			&.mc {
+				@include bg(#216FFF url(../images/common/img_type_mc.png),center center no-repeat,$size:116px 12px); @include wh(128px, 26px); 
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+		}
+
+		&.sml {
+			.type {
+				height:18px; @include pd($l:4px, $r:4px); border-bottom-right-radius:4px; @include flx();
+	
+				span {
+					font-size:9px; font-weight:600;
+				}
+
+				&.certified {
+					span {
+						color:$c_main; position:relative; @include pd($l:11px);
+	
+						&::before {
+							content:''; @include wh(9px, 10px); @include bg(url(../images/common/ico_car_type_certified.svg)); @include pos($type:absolute, $l:0, $t:50%, $trans:translateY(-50%));
+						}
+					}
+				}
+
+				&.hc {
+					@include bg(#222 url(../images/common/img_type_hc.png),center center no-repeat,$size:62px 11px); @include wh(74px, 18px);
+	
+					span {
+						color:transparent; user-select:none;
+					}
+				}
+	
+				&.lc {
+					@include bg(#ED1D24 url(../images/common/img_type_lc.png),center center no-repeat,$size:120px 16px); @include wh(91px, 18px);
+	
+					span {
+						color:transparent; user-select:none;
+					}
+				}
+	
+				&.mc {
+					@include bg(#216FFF url(../images/common/img_type_mc.png),center center no-repeat,$size:116px 12px); @include wh(89px, 18px); 
+	
+					span {
+						color:transparent; user-select:none;
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin carItem_pc($w:282px, $img:166px){
+	.car_item {
+		width:$w; min-height:312px; border-radius:0 8px 8px; overflow:hidden; margin-bottom:32px; display:flex; flex-direction:column;
+
+		&:not(:nth-child(4n)) {
+			margin-right:31.5px;
+		}
+
+		@media (min-width:768px) and (max-width:1600px) {
+
+			&:not(:nth-child(4n)) {
+				margin-right:16px; margin-bottom:16px;
+			}
+
+			&:nth-child(4n){
+				margin-right:16px !important; margin-bottom:16px;
+			}
+
+			&:nth-child(3n){
+				margin-right:0 !important; margin-bottom:16px;
+			}
+		}
+
+		.img_wrap {
+			@include wh(100%, $img);
+
+			a {
+				display:flex; @include wh(100%, 100%);
+			}
+
+			.sub_img {
+				display:none;
+			}
+
+			.main_img {
+				position:relative; @include wh(100%, 100%); overflow:hidden;
+
+				.main {
+					@include img_full(); width:#{$w+1};
+				}
+
+				&::before {
+					content:''; @include wh(100%, 44px); @include pos($type:absolute, $b:0, $l:0);
+					background:linear-gradient(180deg, rgba(34, 34, 34, 0) 0%, rgba(34, 34, 34, 0.5) 71.46%)
+				}
+			}
+
+			@include carItem_type_pc();
+
+			.car_spec {
+				@include pos($type:absolute, $l:24px, $b:12px); @include flx(); z-index:1;
+
+				span {
+					@include fs(13px, 700, white); text-shadow:0 0 1px rgba(0, 0, 0, 0.35);
+
+					&:not(:last-child) {
+						@include mg($r:13px);
+					}
+				}
+			}
+
+			.badge_wrap {
+				@include pos($type:absolute, $b:5px, $r:10px); z-index:1; @include flx($j:flex-end);
+
+				> div {
+					&:last-child {
+						margin-left:4px;
+					}
+				}
+			}
+
+			.badge_ytb {
+				@include wh(20px, 20px); @include bg(url(../images/common/ico_ytb_list.svg)); color:transparent; user-select:none;
+			}
+
+			.badge_hs {
+				@include wh(55px, 22px); @include flx(); @include fs(10px, 600, $c_main); background:white; border-radius:11px; z-index:1;
+			}
+
+			.btn_bookmark {
+				padding:0; border:0; appearance:none; color:transparent; user-select:none; @include wh(23px, 19px); @include pos($type:absolute, $t:6px, $r:6px); cursor:pointer; z-index:1;
+				background: linear-gradient(260deg,rgba(51, 255, 0, 1) 0%, rgba(0, 230, 255, 1) 36%, rgba(255, 255, 255, 0.7) 68%);
+				// background:rgba(255,255,255,0.6);
+				background-size:400% 400%;
+				background-position:0% 0%;
+				mask-image: url('../images/test/heart_test.svg');
+				mask-repeat: no-repeat;
+				mask-size: cover;
+				transition: 0.8s ease;
+
+				&::after {
+					// content:''; display:block; @include wh(100%, 100%); background: linear-gradient(141deg,rgba(51, 255, 0, 1) 0%, rgba(0, 230, 255, 1) 100%); opacity:0; transition:0.5s ease;
+				}
+
+				&.on {
+					background-position:100% 100%;
+
+					&::after {
+						opacity:1;
+					}
+				}
+
+				/* padding:0; background:none; border:0; appearance:none; color:transparent; user-select:none; @include wh(23px, 19px); @include pos($type:absolute, $t:6px, $r:6px); cursor:pointer;
+
+				svg {
+					@include wh(100%, 100%);
+				}
+
+				.gradient01, .gradient02 {
+					stop-color:white; transition:stop-color 1s ease, stop-opacity 1s ease, offset 1s ease;
+				}
+
+				.bg {
+					transition:fill-opacity 1s ease;
+				}
+
+				.line {
+					transition:stroke-opacity 1s ease;
+				}
+				
+				&.on {
+					.gradient01 {
+						stop-color:#33FF00; stop-opacity:1; offset:20%;
+					}
+
+					.gradient02 {
+						stop-color:#00E6FF; stop-opacity:1; offset:120%;
+					}
+
+					.bg {
+						fill-opacity:1;
+					}
+
+					.line {
+						stroke-opacity:0;
+					}
+				} */
+			}
+		}
+
+		.car_info {
+			padding:20px 24px 31px; border:1px solid $c_e6; border-top:0; border-radius:0 0 8px 8px;  /* border:1px solid $c_e6; border-top:0; border-radius:0 0 8px 8px; */ flex:1;
+
+			.nm {
+				@include fs(18px, 700, $c_222); line-height:28px; word-break:keep-all; @include ellipsis(1);
+			}
+
+			.detail {
+				@include fs(15px, 500, $c_222); line-height:28px; @include ellipsis(1);
+			}
+
+			.price {
+				@include mg($t:16px); @include flx($a:flex-end, $j:flex-start);
+
+				.main {
+					@include fs(18px, 700, $c_main);
+				}
+
+				.sub {
+					@include fs(14px, 400, $c_main);
+				}
+
+				.through {
+					text-decoration:line-through;
+				}
+
+				.og {
+					@include fs(14px, 400, $c_555); text-decoration:line-through;
+				}
+			}
+
+			.sale_timer {
+				@include flx(); @include wh(100%, 32px); background:#E9FDFF; border-radius:4px; margin-top:17px;
+
+				.timer {
+					@include flx($d:inline-flex); padding-left:23px; position:relative; @include fs(14px, 600, $c_222);
+
+					* {
+						@include fs(14px, 600, $c_222);
+					}
+
+					&::before {
+						content:''; @include wh(17px, 17px); @include pos($type:absolute, $t:50%, $l:0, $trans:translateY(-50%)); @include bg(url(../images/common/ico_sale_timer.svg));
+					}
+				}
+			}
+		}
+
+		&.rdy_item {
+			.img_wrap {
+				background:$c_f5;
+
+				a {
+					pointer-events:none;
+				}
+
+				.main_img {
+					@include flx();
+
+					&::before {
+						background: #F4F4F4;
+						background: linear-gradient(180deg,rgba(244, 244, 244, 1) 0%, rgba(230, 230, 230, 1) 100%);
+					}
+
+					&::after {
+						content:'※참고용 이미지입니다.'; @include fs(11px, 400, $c_999); @include pos($type:absolute, $t:16px, $l:24px);
+					}
+
+					.main {
+						@include wh(176px, 105.6px); position:relative;
+					}
+				}
+
+				.car_spec {
+					span {
+						@include fs(13px, 400, $c_222);
+					}
+				}
+
+				&:has(.main[src*="img_car_rdy_no_img"]) {
+					.main_img {
+						&::after {
+							content:'이미지 준비중입니다.'; @include fs(14px, 500, $c_777); @include pos($type:absolute, $t:50%, $l:50%, $trans:translate(-50%, -50%));
+						}
+
+						.main {
+							@include wh(177px, 81px);
+						}
+					}
+				}
+			}
+
+			.car_info {
+				padding:20px 24px 24px; display:flex; flex-direction:column; justify-content:space-between;
+
+				.detail {
+					text-overflow:unset; line-height:28px; white-space:unset;
+				}
+			}
+
+			.btn_stockNotice {
+				@include flx(); @include wh(100%, 40px); border-radius:4px; margin-top:32px;
+				background: #01E6FF;
+				background: linear-gradient(48deg,rgba(1, 230, 255, 1) 0%, rgba(51, 255, 1, 1) 100%);
+
+				.inn {
+					@include wh(248px, 38px); @include flx(); background:white; border-radius:4px;
+
+					.ico {
+						@include wh(15px, 15px); margin-right:8px;
+					}
+
+					.txt {
+						@include fs(14px, 700, $c_222);
+					}
+				}
+			}
+		}
+
+		&.on_sale {
+			.car_info {
+				padding:20px 24px 24px;
+
+				.price {
+					@include mg($t:16px); @include flx($a:flex-end, $j:flex-start);
+
+					.main {
+						letter-spacing:-0.18px;
+					}
+
+					.sub, .og {
+						letter-spacing:-0.14px;
+					}
+				}
+			}
+		}
+
+		&.banner {
+			img {
+				width:100%; height:100%; object-fit:cover;
+			}
+		}
+
+		&.end {
+			pointer-events:none; cursor:default;
+
+			.img_wrap {
+				.main_img {
+					&::after {
+						content:'판매완료'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14px, 600, white); @include flx(); z-index:1; border-radius:0 8px 0 0;
+					}
+
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+
+				.price {
+					opacity:0;
+				}
+			}
+		}
+
+		&.ing {
+			pointer-events:none; cursor:default;
+
+			.img_wrap {
+				.main_img {
+					&::after {
+						content:'계약중'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14px, 600, white); @include flx(); z-index:1; border-radius:0 8px 0 0;
+					}
+
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+			}
+		}
+
+		&.ing_hs {
+			.img_wrap {
+				.main_img {
+					&::after {
+						content:'홈서비스 신청중'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14px, 600, #78FF49); @include flx(); z-index:1; border-radius:0 8px 0 0;
+					}
+
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+			}
+		}
+
+		&.load {
+			.img_wrap, .car_info .nm, .car_info .detail, .car_info .price {
+				&::before {
+					content:''; @include wh(110%, 100%); @include pos($type:absolute, $t:0, $l:0); z-index:5; border-radius:2px;
+
+					background:linear-gradient(90deg, rgba(245,245,245,1) 0%, rgb(235, 235, 235) 30%, rgba(245,245,245,1) 95%);
+					background-size:600% 600%;
+					animation: bg 4.5s ease infinite alternate;
+				}
+			}
+			.img_wrap {
+				position:relative;
+			}
+
+			.car_info {
+				.nm {
+					position:relative; @include wh(179px, 20px); overflow:hidden;
+				}
+
+				.detail {
+					position:relative; @include wh(242px, 12px); overflow:hidden; @include mg($t:14px);
+				}
+
+				.price {
+					position:relative; @include mg($t:27px); @include wh(164px, 16px); overflow:hidden;
+				}
+			}
+
+			&.end {
+				.img_wrap {
+					&::after {
+						display:none;
+					}
+				}
+			}
+
+			&.banner {
+				background:linear-gradient(90deg, rgba(245,245,245,1) 0%, rgb(235, 235, 235) 30%, rgba(245,245,245,1) 95%);
+				background-size:600% 600%;
+				animation: bg 4.5s ease infinite alternate;
+
+				a {
+					display:none;
+				}
+			}
+
+			&.on_sale {
+				.sale_timer {
+					background:linear-gradient(90deg, rgba(245,245,245,1) 0%, rgb(235, 235, 235) 30%, rgba(245,245,245,1) 95%);
+					background-size:600% 600%;
+					animation: bg 4.5s ease infinite alternate;
+
+					.timer {
+						display:none;
+					}
+				}
+			}
+
+			&.rdy_item {
+				.btn_stockNotice {
+					background:linear-gradient(90deg, rgba(245,245,245,1) 0%, rgb(235, 235, 235) 30%, rgba(245,245,245,1) 95%);
+					background-size:600% 600%;
+					animation: bg 4.5s ease infinite alternate;
+
+					.inn {
+						display:none;
+					}
+				}
+			}
+		}
+
+		&.no_data {
+			@include flx(); flex-direction:column; width:100%; margin-top:80px; border:0;
+	
+			.no_img {
+				@include wh(120px, 120px); margin-bottom:8px;
+			}
+	
+			.no_txt {
+				@include fs(16px, 400, $c_222); line-height:26px; text-align:center; word-break:keep-all;
+	
+				.str {
+					@include fs(16px, 400, $c_main);
+				}
+			}
+	
+			&.rvs {
+				flex-direction:column-reverse;
+	
+				.no_img {
+					margin-bottom:0; margin-top:8px;
+				}
+			}
+	
+			&.mg {
+				margin:160px auto 0 !important;
+			}
+
+			&.sale {
+				.no_txt {
+					@include fs(18px, 700, $c_222); line-height:1;
+				}
+			}
+		}
+
+		@keyframes bg{
+			0%{
+				background-position: 0 0;
+			}
+			
+			100%{
+				background-position: 200% 200%;
+
+			}
+		}
+	}
+}
+
+@mixin carSortWrap_mo(){
+	.car_sort_wrap {
+		@include pd($t:vw_mo(8)); height:vw_mo(24);
+
+		.car_sort_wrap_inn {
+			@include flx($j:space-between); @include pd($l:vw_mo(20), $r:vw_mo(20)); width:100%; background:white;
+
+			&.on {
+				@include wh(100%, 24); @include pos($type:fixed, $t:vw_mo(53)); padding:vw_mo(12) vw_mo(20) vw_mo(20);
+			}
+		}
+
+		.sort_l {
+			@include flx();
+		}
+
+		.btn_sort_wrap {
+			@include flx($d:inline-flex);
+
+			span {
+				display:inline-flex; @include fs(12, 500, $c_5b); position:relative; @include pd($l:vw_mo(21));
+
+				&::before {
+					content:''; @include pos($type:absolute, $l:0, $t:50%, $trans:translateY(-50%));
+				}
+			}
+
+			&.btn_car_search {
+				@include mg($r:vw_mo(12));
+
+				span {
+					&::before {
+						@include wh(16, 16); @include bg(url(../images/common/ico_btn_car_search_mo.svg));
+					}
+				}
+			}
+
+			&.btn_recentcar {
+				span {
+					&::before {
+						@include wh(16, 12); @include bg(url(../images/common/ico_btn_recentcar_mo.svg));
+					}
+				}
+			}
+
+			&.btn_list_sort {
+				span {
+					&::before {
+						@include wh(16, 16); @include bg(url(../images/common/ico_btn_sort_mo.svg));
+					}
+				}
+			}
+
+			&.btn_car_price {
+				span {
+					&::before {
+						@include wh(16, 16); @include bg(url(../images/common/ico_btn_car_price_mo.svg));
+					}
+				}
+			}
+		}
+	}
+
+	.tab_wrap {
+		font-size:0; padding-left:vw_mo(20); margin-top:vw_mo(24);
+
+		.tab {
+			@include fs(16, 800, $c_aaa);
+
+			&:not(:last-child) {
+				margin-right:vw_mo(16);
+			}
+
+			&.on {
+				color:$c_222;
+			}
+		}
+
+		.total {
+			.num {
+				@include fs(16, 800, $c_aaa);
+			}
+
+			&.on {
+				.num {
+					color:$c_222;
+				}
+			}
+		}
+	}
+}
+
+@mixin carItem_type_mo(){
+	.car_item_type {
+		@include pos($type:absolute, $t:0, $l:0); display:flex;
+
+		.type {
+			height:vw_mo(26); @include pd($l:vw_mo(6), $r:vw_mo(6)); border-bottom-right-radius:vw_mo(4); @include flx();
+
+			span {
+				font-size:vw_mo(12); font-weight:600;
+			}
+
+			&.ai {
+				background:$c_main;
+
+				span {
+					color:white;
+				}
+			}
+
+			&.certified {
+				background:$g_point;
+
+				span {
+					color:$c_main; position:relative; @include pd($l:vw_mo(14));
+
+					&::before {
+						content:''; @include wh(10.7, 12); @include bg(url(../images/common/ico_car_type_certified.svg)); @include pos($type:absolute, $l:0, $t:50%, $trans:translateY(-50%));
+					}
+				}
+			}
+
+			&.sh {
+				background:#47C8FF;
+
+				span {
+					color:white;
+				}
+			}
+
+			&.hc {
+				@include bg(#222 url(../images/common/img_type_hc.png),center center no-repeat,$size:vw_mo(62) vw_mo(11)); @include wh(74, 26);
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+
+			&.lc {
+				@include bg(#ED1D24 url(../images/common/img_type_lc.png),center center no-repeat,$size:vw_mo(120) vw_mo(16)); @include wh(132, 26);
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+
+			&.mc {
+				@include bg(#216FFF url(../images/common/img_type_mc.png),center center no-repeat,$size:vw_mo(116) vw_mo(12)); @include wh(128, 26); 
+
+				span {
+					color:transparent; user-select:none;
+				}
+			}
+		}
+
+		&.sml, &.chn {
+			.type {
+				height:vw_mo(18); @include pd($l:vw_mo(4), $r:vw_mo(4)); border-bottom-right-radius:vw_mo(4);
+	
+				span {
+					font-size:vw_mo(9); font-weight:600;
+				}
+
+				&.certified {
+					span {
+						color:$c_main; position:relative; @include pd($l:vw_mo(11));
+	
+						&::before {
+							content:''; @include wh(9, 10); @include bg(url(../images/common/ico_car_type_certified.svg)); @include pos($type:absolute, $l:0, $t:50%, $trans:translateY(-50%));
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin carItem_mo($w:282px, $h:312px, $img:166px){
+	.car_item {
+		width:100%; min-height:fit-content; border-radius:0; overflow:hidden; border:0; margin:0 0 vw_mo(36) 0 !important; @include pd($l:vw_mo(20), $r:vw_mo(20));
+
+		.img_wrap {
+			@include wh(100%, 144);
+
+			a {
+				display:flex; @include wh(100%, 100%); justify-content:space-between;
+			}
+
+			.sub_img {
+				display:flex; flex-direction:column;
+
+				.sub_img_box {
+					@include wh(102,70); border-radius:vw_mo(4); position:relative;
+
+					&:first-child {
+						@include mg($b:vw_mo(4));
+					}
+				}
+
+				img {
+					@include img_full(); border-radius:vw_mo(4);
+				}
+			}
+
+			.main_img {
+				position:relative; @include wh(214, 100%);
+
+				.main {
+					@include img_full(); border-radius:vw_mo(4);
+				}
+
+				&::before {
+					content:''; @include wh(100%, 44px); @include pos($type:absolute, $b:0, $l:0);
+					background:linear-gradient(180deg, rgba(34, 34, 34, 0) 0%, rgba(34, 34, 34, 0.5) 51.46%)
+				}
+			}
+
+			@include carItem_type_mo();
+
+			.car_spec {
+				@include pos($type:absolute, $l:vw_mo(12), $b:vw_mo(11)); @include flx();
+
+				span {
+					@include fs(12, 600, white); text-shadow:none; letter-spacing:vw_mo(-0.12); position:relative;
+
+					&:not(:last-child) {
+						@include mg($r:vw_mo(5)); @include pd($r:vw_mo(7));
+
+						&::before {
+							content:''; @include wh(2, 2); @include pos($type:absolute, $r:0, $t:50%, $trans:translateY(-50%)); display:flex; border-radius:50%; background:white;
+						}
+					}
+				}
+			}
+
+			.badge_wrap {
+				@include pos($type:absolute, $b:vw_mo(8), $r:vw_mo(8));
+
+				> div {
+					&:last-child {
+						margin-left:vw_mo(3);
+					}
+				}
+			}
+
+			.badge_ytb {
+				flex:0 0 vw_mo(20); @include wh(20, 20); @include bg(url(../images/common/ico_ytb_list.svg)); color:transparent; user-select:none;
+			}
+
+			.badge_hs {
+				flex:0 0 vw_mo(41); @include wh(41, 16); @include flx(); @include fs(7.455, 600, $c_main); background:white; border-radius:vw_mo(8.2);
+			}
+
+			.btn_bookmark {
+				@include wh(23, 19); @include pos($type:absolute, $t:vw_mo(6), $r:vw_mo(6));
+			}
+		}
+
+		.car_info {
+			padding:0; border:0; /* border:1px solid $c_e6; border-top:0; border-radius:0 0 8px 8px; */ @include mg($t:vw_mo(10));
+
+			.nm {
+				@include fs(16, 700, $c_222); line-height:vw_mo(26);
+			}
+
+			.detail {
+				@include fs(16, 700, $c_222); line-height:vw_mo(26); white-space:normal; overflow:auto;
+			}
+
+			.price {
+				@include mg($t:vw_mo(8)); @include flx($a:flex-end, $j:flex-start);
+
+				.main {
+					@include fs(16, 700, $c_main);
+				}
+
+				.sub {
+					@include fs(12, 400, $c_main);
+				}
+
+				.og {
+					@include fs(14, 400, $c_555);
+				}
+			}
+
+			.sale_timer {
+				@include wh(100%, 35); border-radius:vw_mo(4); margin-top:vw_mo(16); line-height:0;
+
+				.timer {
+					padding-left:vw_mo(23); @include fs(14, 600, $c_222);
+
+					* {
+						@include fs(14, 600, $c_222);
+					}
+
+					&::before {
+						@include wh(17, 17);
+					}
+				}
+			}
+		}
+
+		&.rdy_item {
+			.img_wrap {
+				.main_img {
+					width:100%;
+
+					&::after {
+						content:'*참고용 이미지입니다.'; @include fs(11, 400, $c_999); @include pos($type:absolute, $t:vw_mo(16), $l:vw_mo(18));
+					}
+
+					.main {
+						@include wh(158, 94);
+					}
+				}
+
+				.car_spec {
+					span {
+						@include fs(12, 700, $c_222); letter-spacing:vw_mo(-0.12);
+
+						&:not(:last-child){
+							&::before {
+								background:$c_222;
+							}
+						}
+					}
+				}
+
+				&:has(.main[src*="img_car_rdy_no_img"]) {
+					.main_img {
+						&::after {
+							content:'이미지 준비중입니다.'; @include fs(12, 400, $c_777); @include pos($type:absolute, $t:50%, $l:50%, $trans:translate(-50%, -50%)); letter-spacing:vw_mo(-0.12);
+						}
+
+						.main {
+							@include wh(159, 72);
+						}
+					}
+				}
+			}
+
+			.car_info {
+				padding:0;
+
+				.nm {
+					line-height:vw_mo(26); letter-spacing:vw_mo(-0.16); @include fs(16, 800, $c_222);
+				}
+
+				.detail {
+					text-overflow:unset; line-height:vw_mo(26); white-space:unset; letter-spacing:vw_mo(-0.16); @include fs(16, 800, $c_222);
+				}
+			}
+
+			.btn_stockNotice {
+				@include flx(); @include wh(100%, 33); border-radius:vw_mo(4); margin-top:vw_mo(16);
+
+				.inn {
+					@include wh(318, 31); border-radius:vw_mo(4);
+
+					.ico {
+						@include wh(15, 15); margin-right:vw_mo(6);
+					}
+
+					.txt {
+						@include fs(14, 600, $c_222);
+					}
+				}
+			}
+		}
+
+		&.on_sale {
+			.car_info {
+				padding:0;
+
+				.price {
+					margin:vw_mo(8) 0 0; align-items:baseline;;
+
+					.main, .sub, .og {
+						letter-spacing:0;
+					}
+				}
+			}
+		}
+
+		&.banner {
+			padding:0;
+
+			img {
+				@include img_full();
+			}
+		}
+
+		&.end {
+			.img_wrap {
+				position:relative; border-radius:vw_mo(4); overflow:hidden;
+
+				&::after {
+					content:'판매완료'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14, 600, white); @include flx(); z-index:5;
+				}
+
+				.main_img {
+					&::after {
+						display:none;
+					}
+					
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+			}
+		}
+
+		&.ing {
+			.img_wrap {
+				position:relative; border-radius:vw_mo(4); overflow:hidden;
+
+				&::after {
+					content:'계약중'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14, 600, white); @include flx(); z-index:5;
+				}
+
+				.main_img {
+					&::after {
+						display:none;
+					}
+					
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+			}
+		}
+
+		&.ing_hs {
+			.img_wrap {
+				position:relative; border-radius:vw_mo(4); overflow:hidden;
+
+				a {
+					&::after {
+						content:'홈서비스 신청중'; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); background:rgba(0,0,0,0.5); @include fs(14, 600, #78FF49); @include flx(); z-index:5;
+					}
+				}
+
+
+				.main_img {
+					&::after {
+						display:none;
+					}
+					
+					.car_item_type, .car_spec {
+						z-index:2;
+					}
+
+					.badge_ytb, .badge_hs {
+						z-index:2;
+					}
+				}
+			}
+
+			.car_info {
+				.nm, .detail, .price .main, .price .sub {
+					color:$c_999;
+				}
+			}
+		}
+
+		&.load {
+			.img_wrap, .main_img, .sub_img_box, .car_info .nm, .car_info .detail, .car_info .price {
+				
+				&::before {
+					content:''; @include wh(100%, 100%); @include pos($type:absolute, $t:0, $l:0); z-index:3; border-radius:vw_mo(2);
+
+					background:linear-gradient(133deg, rgba(245,245,245,1) 7%, rgba(204,204,204,1) 50%, rgba(245,245,245,1) 95%);
+					background-size:600% 600%;
+					animation: bg 2.5s ease infinite alternate;
+				}
+			}
+
+			.img_wrap {
+				position:relative;
+
+				&::before, &::after {
+					display:none;
+				}
+			}
+
+			.main_img, .sub_img_box {
+				img {
+					opacity:0;
+				}
+
+				&::before {
+					border-radius:vw_mo(4);
+				}
+			}
+
+			.main_img {
+				.car_item_type, .car_spec, .badge_ytb, .badge_hs {
+					display:none;
+				}
+			}
+
+			.car_info {
+				.nm {
+					position:relative; @include wh(257, 12); overflow:hidden; text-indent:-1000%;
+				}
+
+				.detail {
+					position:relative; @include wh(130, 12); overflow:hidden; @include mg($t:vw_mo(12)); text-indent:-1000%;
+				}
+
+				.price {
+					position:relative; @include mg($t:vw_mo(12)); @include wh(164, 12); overflow:hidden; text-indent:-1000%;
+				}
+			}
+
+			&.end {
+				.img_wrap {
+					border:0;
+
+					.main_img {
+						&::after {
+							display:none;
+						}
+					}
+				}
+			}
+
+			&.ing_hs {
+				.img_wrap {
+					a {
+						&::after {
+							display:none;
+						}
+					}
+				}
+			}
+
+			&.banner {
+				background:linear-gradient(133deg, rgba(245,245,245,1) 7%, rgba(204,204,204,1) 50%, rgba(245,245,245,1) 95%);
+				background-size:600% 600%;
+				animation: bg 2.5s ease infinite alternate;
+
+				a {
+					display:none;
+				}
+			}
+		}
+
+		&.no_data {
+			@include flx(); flex-direction:column; width:100%; margin:vw_mo(80) !important; border:0;
+	
+			.no_img {
+				@include wh(96, 96); margin-bottom:vw_mo(8);
+			}
+	
+			.no_txt {
+				@include fs(14, 400, $c_222); line-height:vw_mo(24); text-align:center;
+	
+				.str {
+					@include fs(14, 400, $c_main);
+				}
+			}
+	
+			&.rvs {
+				flex-direction:column-reverse;
+	
+				.no_img {
+					margin-bottom:0; margin-top:vw_mo(8);
+				}
+			}
+	
+			&.mg {
+				margin:vw_mo(80) auto !important;
+			}
+
+			&.sale {
+				.no_img {
+					@include wh(80, 80);
+				}
+
+				.no_txt {
+					@include fs(16, 700, $c_222); line-height:1;
+				}
+			}
+		}
+
+		@keyframes bg{
+			0%{
+				background-position-x: 0;
+			}
+			
+			100%{
+				background-position-x: 100%;
+			}
+		}
+	}
+}
+
+@mixin btmPopup_mo(){
+	.popup_mo_sml {
+		position:fixed; top:0; left:0; @include wh(100%, 100%); z-index:-1; opacity:0; user-select:none;
+
+		.popup_blind {
+			@include blind();
+		}
+
+		.popup_layer {
+			position:absolute; width:100%; height:max-content; @include pos($type:absolute, $b:-100%, $l:0); background:white; border-radius:vw_mo(8) vw_mo(8) 0 0; padding:vw_mo(24) vw_mo(20); transition:0.5s;
+
+			.popup_title {
+				@include flx($j:space-between); @include mg($b:vw_mo(8));
+
+				.tit {
+					@include fs(20, 700, $c_222);
+				}
+
+				.popup_close {
+					user-select:none; color:transparent; @include bg(url(../images/common/ico_btn_popup_sml_close.svg)); @include wh(16, 16);
+				}
+			}
+
+			.popup_container {
+				.content_inn {
+
+				}
+			}
+		}
+
+		&.on {
+			opacity:1; z-index:1001; user-select:auto;
+
+			.popup_layer {
+				bottom:0;
+			}
+		}
+	}
+}
+
+@mixin tooltip_pc($w:336px, $bg:white, $t:0, $l:0){
+	.tooltip_cmn {
+		@include pos($type:absolute, $t:$t, $l:$l); width:0; height:0; opacity:0; z-index:-1; overflow:hidden; border-radius:8px;
+	
+		.tooltip_blind {
+			display:none;
+		}
+	
+		.tooltip_layer {
+			width:100%; @include bg($bg); @include pd($t:16px, $r:16px, $b:40px, $l:20px); transition:0.5s;
+	
+			.tooltip_t {
+				@include flx($j:flex-end); height:24px;
+			}
+
+			.tooltip_title {
+				@include fs(16px, 700, $c_222);
+			}
+	
+			.tooltip_close {
+				display:flex; user-select:none; color:transparent; @include wh(24px, 24px); @include bg(url(../images/common/ico_btn_Close_small.svg));
+
+				&.w {
+					@include bg(url(../images/common/ico_btn_Close_small_w.svg));
+				}
+			}
+	
+			.tooltip_title {
+				@include fs(18px, 700, $c_222);
+			}
+	
+			.content_inn {
+				@include fs(14px, 400, $c_222); line-height:24px; @include mg($t:0);
+	
+				&.align_c {
+					text-align:center;
+				}
+
+				.str {
+					color:$c_main;
+				}
+			}
+		}
+
+		&.on {
+			width:$w; height:fit-content; opacity:1; z-index:10; overflow:auto; box-shadow:6px 6px 25px 0px rgba(0, 0, 0, 0.10);
+		}
+
+		&:has(.tooltip_title) {
+			.tooltip_layer {
+				@include pd($t:16px, $r:16px, $b:24px, $l:20px);
+
+				.tooltip_t {
+					@include flx($j:space-between);
+				}
+
+				.content_inn {
+					margin-top:12px;
+				}
+			}
+		}
+	}
+}
+@mixin tooltip_mo(){
+	.tooltip_cmn {
+		position:fixed; top:0; left:0; @include wh(0, 0); z-index:-1; opacity:0; user-select:none; border-radius:0;
+	
+		.tooltip_blind {
+			@include blind(); display:block;
+		}
+	
+		.tooltip_layer {
+			position:absolute; width:100%; height:max-content; @include pos($type:absolute, $b:-100%, $l:0); background:white; border-radius:vw_mo(8) vw_mo(8) 0 0; padding:vw_mo(20) vw_mo(20) vw_mo(52); transition:0.5s;
+
+			.tooltip_t {
+				@include flx($j:flex-end); height:vw_mo(24);
+			}
+
+			.tooltip_title {
+				@include fs(20, 700, $c_222);
+			}
+	
+			.tooltip_close {
+				user-select:none; color:transparent; @include bg(url(../images/common/ico_btn_popup_close.svg)); @include wh(24, 24);
+
+				&.w {
+					@include bg(url(../images/common/ico_btn_Close_small_w.svg));
+				}
+			}
+	
+			.tooltip_title {
+				@include fs(20, 700, $c_222);
+			}
+	
+			.content_inn {
+				@include fs(14, 400, $c_222); line-height:vw_mo(22);  @include mg($t:vw_mo(4));
+	
+				&.align_c {
+					text-align:center;
+				}
+
+				.str {
+					color:$c_main;
+				}
+			}
+		}
+
+		&.on {
+			opacity:1; z-index:100; user-select:auto; @include wh(100%, 100%); box-shadow:none;
+
+			.tooltip_layer {
+				bottom:0;
+			}
+		}
+
+		&:has(.tooltip_title) {
+			.tooltip_layer {
+				padding:vw_mo(24) vw_mo(20) vw_mo(40);
+
+				.tooltip_t {
+					@include flx($j:space-between);
+				}
+
+				.content_inn {
+					margin-top:vw_mo(14);
+				}
+			}
+		}
+	}
+}
+
+@mixin popup_share_pc($p_t:0, $p_l:0, $w:336px){
+	.popup_share {
+		@include pos($type:absolute, $t:$p_t, $l:$p_l); width:0; height:0; opacity:0; z-index:-1; overflow:hidden; border-radius:8px;
+	
+		.popup_blind {
+			display:none;
+		}
+	
+		.popup_layer {
+			width:100%; background:white; @include pd($t:16px, $r:16px, $b:34px, $l:24px); transition:0.5s;
+	
+			.popup_title {
+				@include flx($j:space-between); margin-bottom:24px;
+	
+				.title {
+					@include fs(16px, 600, black);
+				}
+	
+				.popup_close {
+					display:flex; user-select:none; color:transparent; @include wh(24px, 24px); @include bg(url(../images/common/ico_btn_popup_close_pc.svg));
+				}
+			}
+	
+			.sns_list {
+				@include flx($j:space-between); padding:0 15px 0 7px;
+	
+				.sns_link {
+					@include flx(); flex-direction:column;
+	
+					img {
+						@include wh(32px, 32px); margin-bottom:10px;
+					}
+	
+					.tit {
+						@include fs(14px, 400, $c_222);
+					}
+				}
+			}
+	
+		}
+	
+		&.on {
+			width:$w; height:fit-content; opacity:1; z-index:100; overflow:auto; box-shadow:6px 6px 25px 0px rgba(0, 0, 0, 0.10);
+		}
+	}
+}
+
+@mixin popup_share_mo(){
+	.popup_share {
+		@include pos($type:fixed, $t:0, $l:0); width:0; height:0; opacity:0; z-index:-1; overflow:hidden; border-radius:0;
+	
+		.popup_blind {
+			@include blind(); display:block;
+		}
+	
+		.popup_layer {
+			width:100%; background:white; padding:vw_mo(20) vw_mo(24); transition:0.5s; @include pos($type:absolute, $b:-100%, $l:0); transition:0.5s; border-radius:vw_mo(8) vw_mo(8) 0 0;
+	
+			.popup_title {
+				@include flx($j:space-between); margin-bottom:vw_mo(22);
+	
+				.title {
+					@include fs(20, 700, $c_222);
+				}
+	
+				.popup_close {
+					user-select:none; color:transparent; @include bg(url(../images/common/ico_btn_popup_sml_close.svg)); @include wh(16, 16);
+				}
+			}
+	
+			.sns_list {
+				@include flx($j:flex-start, $a:flex-start); padding:0; flex-direction:column;
+
+				li {
+					margin-bottom:vw_mo(20);
+				}
+	
+				.sns_link {
+					@include flx($j:flex-start); flex-direction:row;
+	
+					img {
+						@include wh(32, 32); margin-bottom:0; margin-right:vw_mo(10);
+					}
+	
+					.tit {
+						@include fs(16, 400, $c_222);
+					}
+				}
+			}
+	
+		}
+	
+		&.on {
+			width:100%; height:100%; opacity:1; z-index:100; overflow:auto; box-shadow:none;
+
+			.popup_layer {
+				bottom:0;
+			}
+		}
+	}
+}
+
+@mixin slidePaging_pc(){
+	.slide_paging {
+		display:flex; justify-content:flex-start; z-index:5; width:auto;
+
+		span {
+			@include wh(6px, 6px); margin:0 8px 0 0 !important; transition:opacity 0.5s; opacity:0.3; background:white;
+
+			&:last-child {
+				margin:0 !important;
+			}
+	
+			&.swiper-pagination-bullet-active {
+				opacity:1;
+			}
+		}
+
+		&.v2 {
+			span {
+				opacity:1; background:#B9C0D9;
+	
+				&.swiper-pagination-bullet-active {
+					background:$c_main;
+				}
+			}
+		}
+	}
+}
+
+@mixin slidePaging_mo(){
+	.slide_paging {
+		display:flex; justify-content:flex-start; z-index:5; width:auto;
+
+		span {
+			@include wh(6, 6); margin:0 vw_mo(6) 0 0 !important; transition:opacity 0.5s; opacity:0.3; background:white;
+
+			&:last-child {
+				margin:0 !important;
+			}
+	
+			&.swiper-pagination-bullet-active {
+				opacity:1;
+			}
+		}
+
+		&.v2 {
+			span {
+				opacity:1; background:#B9C0D9;
+	
+				&.swiper-pagination-bullet-active {
+					background:$c_main;
+				}
+			}
+		}
+	}
+}

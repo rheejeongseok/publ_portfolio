@@ -1,0 +1,156 @@
+@import "_variable";
+@import "_function";
+
+/* @font-face {
+  font-family: 'RobotoMono';
+  font-weight: 900;
+  font-display: swap;
+  src:local("SUIT Black"), 
+			url("../fonts/SUIT-Heavy.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 800;
+  font-display: swap;
+  src:local("SUIT ExtraBold"), 
+			url("../fonts/SUIT-ExtraBold.woff2") format("woff2"),
+			url("../fonts/SUIT-ExtraBold.ttf") format("truetype");
+} */
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 700;
+  font-display: swap;
+  src:local("RobotoMono-Bold"), 
+			url("../fonts/RobotoMono-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 600;
+  font-display: swap;
+  src:local("RobotoMono-SemiBold"), 
+			url("../fonts/RobotoMono-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 500;
+  font-display: swap;
+  src:local("RobotoMono Medium"), 
+			url("../fonts/RobotoMono-Medium.woff2") format("woff2"),
+			url("../fonts/RobotoMono-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 400;
+  font-display: swap;
+  src:local("RobotoMono Regular"), 
+			url("../fonts/RobotoMono-Regular.woff2") format("woff2"),
+			url("../fonts/RobotoMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 300;
+  font-display: swap;
+  src:local("RobotoMono Light"), 
+			url("../fonts/RobotoMono-Light.woff2") format("woff2"),
+			url("../fonts/RobotoMono-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 200;
+  font-display: swap;
+  src:local("RobotoMono ExtraLight"), 
+			url("../fonts/RobotoMono-ExtraLight.woff2") format("woff2"),
+			url("../fonts/RobotoMono-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-weight: 100;
+  font-display: swap;
+  src:local("RobotoMono Thin"), 
+			url("../fonts/RobotoMono-Thin.woff2") format("woff2"),
+			url("../fonts/RobotoMono-Thin.ttf") format("truetype");
+}
+
+* {
+	font-family:'RobotoMono';
+}
+
+body {
+	height:100vh; background:#cef1f1; @include flx(); 
+}
+
+.border_top {
+	@include wh(100%, 40px); background:#E9BDDE; border-radius:8px 8px 0 0;
+	display:flex; align-items:center;
+}
+
+.border_left {
+	@include wh(40px, 100%); background:#E9BDDE; border-radius:0 0 0 8px;
+}
+
+.my-code {
+	display:flex; flex-direction:column; height:100vh; @include wh(1200px, 700px); background:#222; border-radius:8px;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.my-code__ico {
+	font-size:18px; flex:0 0 40px; @include flx($d:inline-flex);
+}
+
+.my-code__title {
+	@include fs(18px, 600, white);
+}
+
+.container {
+	flex:1; display:flex;
+
+	.navigator {
+		flex:0 0 200px; height:100%; background:#3d3d3d; border-radius:0 0 0 8px;
+	}
+}
+
+.content {
+	display:flex; flex-direction:column; flex:1;
+
+	.content__tab-wrap {
+		flex:0 0 40px; border-bottom:1px solid #da9862;
+	}
+
+	.content__tab-list {
+		@include flx($j:flex-start); height:100%;
+	}
+
+	.content__tab-item {
+		flex:1 1 100px; height:100%; @include flx($d:inline-flex);
+
+		&.on {
+			.content__tab-btn {
+				background:rgba(218,152,98,0.7);
+
+				&::after {
+					background:#3fa178;
+				}
+			}
+		}
+	}
+
+	.content__tab-btn {
+		@include wh(100%, 100%); @include flx($j:flex-start); background:#3d3d3d; padding-left:20px; position:relative;
+
+		&::after {
+			content:''; @include wh(8px, 8px); border-radius:50%; background:#b92238; @include pos($type:absolute, $r:20px, $t:50%, $trans:translateY(-50%));
+		}
+
+		span {
+			@include fs(14px, 400, rgba(229,229,229,0.7));
+		}
+	}
+}
