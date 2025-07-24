@@ -106,29 +106,41 @@ body {
 }
 
 .my-code__title {
-	@include fs(18px, 600, white);
+	@include fs(18px, 500, #222);
 }
 
 .container {
 	flex:1; display:flex;
+}
 
-	.navigator {
-		flex:0 0 200px; height:100%; background:#3d3d3d; border-radius:0 0 0 8px;
-	}
+.navigator {
+	flex:0 0 300px; height:100%; background:#3d3d3d; border-radius:0 0 0 8px; display:flex;
+}
+
+.navigator__menu {
+	flex:1; padding:16px;
+}
+
+.navigator__menu-openbtn, .navigator__menu-item{
+	line-height:22px;
+}
+
+.navigator__menu-depthbar, .navigator__menu-ico, .navigator__menu-txt {
+	@include fs(14px, 400, white);
 }
 
 .content {
 	display:flex; flex-direction:column; flex:1;
 
-	.content__tab-wrap {
+	&__tab-wrap {
 		flex:0 0 40px; border-bottom:1px solid #da9862;
 	}
 
-	.content__tab-list {
+	&__tab-list {
 		@include flx($j:flex-start); height:100%;
 	}
 
-	.content__tab-item {
+	&__tab-item {
 		flex:1 1 100px; height:100%; @include flx($d:inline-flex);
 
 		&.on {
@@ -142,7 +154,7 @@ body {
 		}
 	}
 
-	.content__tab-btn {
+	&__tab-btn {
 		@include wh(100%, 100%); @include flx($j:flex-start); background:#3d3d3d; padding-left:20px; position:relative;
 
 		&::after {
@@ -152,5 +164,9 @@ body {
 		span {
 			@include fs(14px, 400, rgba(229,229,229,0.7));
 		}
+	}
+
+	&__body {
+		flex:1;
 	}
 }

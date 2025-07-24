@@ -141,8 +141,8 @@ body {
 
 .my-code__title {
   font-size: 18px;
-  font-weight: 600;
-  color: white;
+  font-weight: 500;
+  color: #222;
 }
 
 .container {
@@ -153,13 +153,34 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
-.container .navigator {
+
+.navigator {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 200px;
-          flex: 0 0 200px;
+      -ms-flex: 0 0 300px;
+          flex: 0 0 300px;
   height: 100%;
   background: #3d3d3d;
   border-radius: 0 0 0 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.navigator__menu {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 16px;
+}
+
+.navigator__menu-openbtn, .navigator__menu-item {
+  line-height: 22px;
+}
+
+.navigator__menu-depthbar, .navigator__menu-ico, .navigator__menu-txt {
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
 }
 
 .content {
@@ -174,13 +195,13 @@ body {
       -ms-flex: 1;
           flex: 1;
 }
-.content .content__tab-wrap {
+.content__tab-wrap {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 40px;
           flex: 0 0 40px;
   border-bottom: 1px solid #da9862;
 }
-.content .content__tab-list {
+.content__tab-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -192,7 +213,7 @@ body {
           justify-content: flex-start;
   height: 100%;
 }
-.content .content__tab-item {
+.content__tab-item {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 100px;
           flex: 1 1 100px;
@@ -207,13 +228,13 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.content .content__tab-item.on .content__tab-btn {
+.content__tab-item.on .content__tab-btn {
   background: rgba(218, 152, 98, 0.7);
 }
-.content .content__tab-item.on .content__tab-btn::after {
+.content__tab-item.on .content__tab-btn::after {
   background: #3fa178;
 }
-.content .content__tab-btn {
+.content__tab-btn {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -229,7 +250,7 @@ body {
   padding-left: 20px;
   position: relative;
 }
-.content .content__tab-btn::after {
+.content__tab-btn::after {
   content: "";
   width: 8px;
   height: 8px;
@@ -241,8 +262,13 @@ body {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-.content .content__tab-btn span {
+.content__tab-btn span {
   font-size: 14px;
   font-weight: 400;
   color: rgba(229, 229, 229, 0.7);
+}
+.content__body {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
