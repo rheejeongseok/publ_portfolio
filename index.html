@@ -6,6 +6,8 @@
 	<title>테 스 트</title>
 	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/main.css">
+	<script src="./js/jquery-3.6.0.min.js"></script>
+	<script src="./js/index.js"></script>
 </head>
 <body>
 	<div class="my-code">
@@ -23,21 +25,21 @@
 					</div>
 					<ul class="navigator__list">
 						<li class="navigator__menu-item">
-							<a href="javascript:;">
+							<a href="javascript:;" class="page__anchor" data-anchor="main">
 								<span class="navigator__menu-depthbar">├─</span>
 								<span class="navigator__menu-ico">📄</span>
 								<span class="navigator__menu-txt">test.jsx</span>
 							</a>
 						</li>
 						<li class="navigator__menu-item">
-							<a href="javascript:;">
+							<a href="javascript:;" class="page__anchor" data-anchor="about">
 								<span class="navigator__menu-depthbar">├─</span>
 								<span class="navigator__menu-ico">📄</span>
 								<span class="navigator__menu-txt">test.md</span>
 							</a>
 						</li>
 						<li class="navigator__menu-item">
-							<a href="javascript:;">
+							<a href="javascript:;" class="page__anchor" data-anchor="work_list">
 								<span class="navigator__menu-depthbar">├─</span>
 								<!-- <span class="navigator__menu-ico">📁</span> -->
 								<span class="navigator__menu-ico">📂</span>
@@ -45,21 +47,28 @@
 							</a>
 							<ul class="navigator__submenu">
 								<li class="navigator__submenu-item">
-									<a href="javascript:;">
+									<a href="javascript:;" class="page__anchor--work" data-anchor="work_ah">
 										<span class="navigator__menu-depthbar">├──</span>
 										<span class="navigator__menu-ico">📄</span>
 										<span class="navigator__menu-txt">test.html</span>
 									</a>
 								</li>
 								<li class="navigator__submenu-item">
-									<a href="javascript:;">
+									<a href="javascript:;" class="page__anchor--work" data-anchor="work_ai">
 										<span class="navigator__menu-depthbar">├──</span>
 										<span class="navigator__menu-ico">📄</span>
 										<span class="navigator__menu-txt">test.html</span>
 									</a>
 								</li>
 								<li class="navigator__submenu-item">
-									<a href="javascript:;">
+									<a href="javascript:;" class="page__anchor--work" data-anchor="work_auc">
+										<span class="navigator__menu-depthbar">├──</span>
+										<span class="navigator__menu-ico">📄</span>
+										<span class="navigator__menu-txt">test.html</span>
+									</a>
+								</li>
+								<li class="navigator__submenu-item">
+									<a href="javascript:;" class="page__anchor--work" data-anchor="work_etc">
 										<span class="navigator__menu-depthbar">├──</span>
 										<span class="navigator__menu-ico">📄</span>
 										<span class="navigator__menu-txt">test.html</span>
@@ -68,7 +77,7 @@
 							</ul>
 						</li>
 						<li class="navigator__menu-item">
-							<a href="javascript:;">
+							<a href="javascript:;" class="page__anchor" data-anchor="contact">
 								<span class="navigator__menu-depthbar">├─</span>
 								<span class="navigator__menu-ico">📄</span>
 								<span class="navigator__menu-txt">test.json</span>
@@ -81,23 +90,23 @@
 				<div class="content__tab-wrap">
 					<ul class="content__tab-list">
 						<li class="content__tab-item on">
-							<a href="javascript:;" class="content__tab-btn">
-								<span>test</span>
+							<a href="javascript:;" class="content__tab-btn page__anchor" data-anchor="main">
+								<span>test1</span>
 							</a>
 						</li>
 						<li class="content__tab-item">
-							<a href="javascript:;" class="content__tab-btn">
-								<span>test</span>
+							<a href="javascript:;" class="content__tab-btn page__anchor" data-anchor="about">
+								<span>test2</span>
 							</a>
 						</li>
 						<li class="content__tab-item">
-							<a href="javascript:;" class="content__tab-btn">
-								<span>test</span>
+							<a href="javascript:;" class="content__tab-btn page__anchor" data-anchor="work_list">
+								<span>test3</span>
 							</a>
 						</li>
 						<li class="content__tab-item">
-							<a href="javascript:;" class="content__tab-btn">
-								<span>test</span>
+							<a href="javascript:;" class="content__tab-btn page__anchor" data-anchor="contact">
+								<span>test4</span>
 							</a>
 						</li>
 					</ul>

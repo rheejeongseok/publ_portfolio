@@ -99,6 +99,17 @@ body {
 .my-code {
 	display:flex; flex-direction:column; height:100vh; @include wh(1200px, 700px); background:#222; border-radius:8px;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	animation:my-code-in 1s ease;
+}
+
+@keyframes my-code-in {
+	0% {
+		transform:translate(10px, 10px); opacity:0;
+	}
+
+	100% {
+		transform:translate(0, 0); opacity:1;
+	}
 }
 
 .my-code__ico {
@@ -155,10 +166,10 @@ body {
 	}
 
 	&__tab-btn {
-		@include wh(100%, 100%); @include flx($j:flex-start); background:#3d3d3d; padding-left:20px; position:relative;
+		@include wh(100%, 100%); @include flx($j:flex-start); background:#3d3d3d; padding-left:20px; position:relative; transition:background 0.5s;
 
 		&::after {
-			content:''; @include wh(8px, 8px); border-radius:50%; background:#b92238; @include pos($type:absolute, $r:20px, $t:50%, $trans:translateY(-50%));
+			content:''; @include wh(8px, 8px); border-radius:50%; background:#b92238; @include pos($type:absolute, $r:20px, $t:50%, $trans:translateY(-50%)); transition:background 0.5s;
 		}
 
 		span {
@@ -168,5 +179,33 @@ body {
 
 	&__body {
 		flex:1;
+	}
+}
+
+.tag {
+	font-size:14px; color:white; display:flex;
+
+	&::before {
+		font-size:14px; color:white;
+	}
+	
+	&__pasis-lt {
+		&::before {
+			content:'<';
+		}
+	}
+
+	&__pasis-gt {
+		&::before {
+			content:'>';
+		}
+	}
+
+	&__name {
+
+	}
+
+	&__class {
+		
 	}
 }
