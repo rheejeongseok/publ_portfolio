@@ -1,0 +1,15 @@
+<h1 class="wavy">움직이는 글씨에요 이렇게 움직입니다.</h1>
+
+<script>
+	(function(){
+		console.log("Script running");
+
+		const $wavy = $(".wavy");
+		const aa = $wavy.text().split("");
+		$wavy.empty().append(
+			aa.map((a, i) => {
+				return `<span style="animation-delay:${i * 0.05}s">${a}</span>`;
+			}).join("")
+		);
+	})();
+</script>

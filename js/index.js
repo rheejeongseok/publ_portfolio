@@ -1,5 +1,4 @@
 window.addEventListener("load",() => {
-	console.log("asdf")
 	pageInit();
 	clickEvt();
 });
@@ -21,7 +20,7 @@ function pageInit(){
 	const $body = $(".content__body");
 	
 	$.ajax({
-		url:`${window.location.origin}/01newpf/html/main.html`
+		url:`${window.location.origin}/01newpf/html/intro.html`
 		, dataType:'html'
 		, beforeSend: () => {
 			console.log("before")
@@ -32,25 +31,34 @@ function pageInit(){
 		}
 		, complete: () => {
 			console.log("end")
+			setTimeout(() => {
+				$body.addClass("on");
+			}, 100);
 		}
 	});
 }
 
 function setPage(page){
 	const $body = $(".content__body");
-
+	
 	$.ajax({
 		url:`${window.location.origin}/01newpf/html/${page}.html`
 		, dataType:'html'
 		, beforeSend: () => {
 			console.log("before")
+			$body.removeClass("on");
 		}
 		, success: (data) => {
 			console.log("ok")
 			$body.html(data);
+			
+
 		}
 		, complete: () => {
 			console.log("end")
+			setTimeout(() => {
+				$body.addClass("on");
+			}, 100);
 		}
 	});
 }
