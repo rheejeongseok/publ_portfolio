@@ -17,25 +17,7 @@ function clickEvt(){
 }
 
 function pageInit(){
-	const $body = $(".content__body");
-	
-	$.ajax({
-		url:`${window.location.origin}/01newpf/html/intro.html`
-		, dataType:'html'
-		, beforeSend: () => {
-			console.log("before")
-		}
-		, success: (data) => {
-			console.log("ok")
-			$body.html(data);
-		}
-		, complete: () => {
-			console.log("end")
-			setTimeout(() => {
-				$body.addClass("on");
-			}, 100);
-		}
-	});
+	setPage("intro");
 }
 
 function setPage(page){
@@ -51,8 +33,6 @@ function setPage(page){
 		, success: (data) => {
 			console.log("ok")
 			$body.html(data);
-			
-
 		}
 		, complete: () => {
 			console.log("end")
