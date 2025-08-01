@@ -92,7 +92,7 @@ body {
 }
 
 .my-code {
-	display:flex; flex-direction:column; height:100vh; @include wh(1200px, 700px); background:#222; border-radius:8px;
+	display:flex; flex-direction:column; height:100vh; @include wh(1280px, 800px); background:#222; border-radius:8px;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 	animation:my-code-in 1s ease;
 }
@@ -409,12 +409,12 @@ body {
 		}
 
 		&--dot {
-			@include wh(8px, 8px); border-radius:50%; background:#c9c9c9; margin-right:4px; transition:background 0.5s;
+			@include wh(8px, 8px); border-radius:50%; background:#c9c9c9; margin-right:4px; transition:background 1s;
 		}
 	}
 
 	&__img {
-		height:400px; background:white; border-radius:8px; position:relative;
+		height:550px; background:white; border-radius:8px; position:relative;
 
 		img {
 			@include img_full(); border-radius:8px;
@@ -422,6 +422,22 @@ body {
 
 		&--title {
 			@include pos($type:absolute, $l:50%, $t:50%, $trans:translate(-50%, -50%)); @include fs(24px, 700, $c_222);
+		}
+	}
+
+	.swiper-slide-active {
+		.workcard__desc {
+			&--dot {
+				&:first-child {
+					background:#da9862;
+				}
+				&:nth-child(2) {
+					background:#3fa178; transition-delay:0.3s;
+				}
+				&:last-child {
+					background: red; transition-delay:0.6s;
+				}
+			}
 		}
 	}
 }
