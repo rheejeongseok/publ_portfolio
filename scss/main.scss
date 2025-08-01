@@ -75,7 +75,7 @@
 }
 
 * {
-	font-family:'RobotoMono';
+	font-family:'RobotoMono'; box-sizing:border-box;
 }
 
 body {
@@ -193,7 +193,7 @@ body {
 }
 
 .content {
-	display:flex; flex-direction:column; flex:1;
+	display:flex; flex-direction:column; flex:1; width:calc(100% - 300px);
 
 	&:has(.wavy) {
 		position:relative;
@@ -368,6 +368,60 @@ body {
 
 		&-value {
 			color:#e7cf1c;
+		}
+	}
+}
+
+.workcard {
+	&__title {
+		@include fs(18px, 700, white); margin-bottom:40px;
+	}
+
+	&__swiper {
+		width:100%; overflow:hidden;
+	}
+
+	&__item {
+		width:700px; 
+	}
+
+	&__link {
+		display:flex; flex-direction:column;
+	}
+
+	&__desc {
+		width:100%; height:60px; border-radius:8px; @include flx($j:space-between); padding:0 20px; background:white; margin-bottom:5px;
+
+		&--left {
+			display:flex; align-items:baseline;
+		}
+
+		&--title {
+			@include fs(22px, 500, $c_222);
+		}
+
+		&--tags {
+			@include fs(14px, 400, $c_555); margin-left:20px;
+		}
+
+		&--dots {
+			display:flex;
+		}
+
+		&--dot {
+			@include wh(8px, 8px); border-radius:50%; background:#c9c9c9; margin-right:4px; transition:background 0.5s;
+		}
+	}
+
+	&__img {
+		height:400px; background:white; border-radius:8px; position:relative;
+
+		img {
+			@include img_full(); border-radius:8px;
+		}
+
+		&--title {
+			@include pos($type:absolute, $l:50%, $t:50%, $trans:translate(-50%, -50%)); @include fs(24px, 700, $c_222);
 		}
 	}
 }

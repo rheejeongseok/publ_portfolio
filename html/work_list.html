@@ -1,41 +1,81 @@
-<div class="tag">
-	<span class="tag__pasis-lt"></span>
-	<span class="tag__name">body</span>
-	<span class="tag__pasis-gt"></span>
-</div>
-<div class="tag step01 inline">
-	<span class="tag__pasis-lt"></span>
-	<span class="tag__name">h1</span>
-	<span class="tag__class">
-		<span class="tag__class--nm">class=</span>
-		<span class="tag__class--val">"title"</span>
-	</span>
-	<span class="tag__pasis-gt"></span>
-</div>
-<div class="tag inline">
-	<span class="tag__pasis-lt">/</span>
-	<span class="tag__name">span</span>
-	<span class="tag__pasis-gt"></span>
-</div>
-<div class="tag">
-	<span class="tag__pasis-lt">/</span>
-	<span class="tag__name">span</span>
-	<span class="tag__pasis-gt"></span>
-</div>
+<script>
+	(function(){
+		console.log("Script running");
 
-
-
-<!-- <div class="tag step01">
-	<span class="tag__pasis-lt"></span>
-	<span class="tag__name">span</span>
-	<span class="tag__class">
-		<span class="tag__class--nm">class=</span>
-		<span class="tag__class--val">"test"</span>
-	</span>
-	<span class="tag__pasis-gt"></span>
+		const worklistSwiper = new Swiper(".workcard__swiper", {
+			freeMode:true,
+			slidesPerView: "auto",
+			spaceBetween: 20,
+			on : {
+				init: () => {
+					console.log("Swiper initialized");
+				}
+			}
+		});
+	})();
+</script>
+<!-- https://fabrica.framer.media/ -->
+<div class="workcard">
+	<div class="workcard__title">testsetsts</div>
+	<div class="workcard__swiper swiper">
+		<ul class="workcard__list swiper-wrapper">
+			<li class="workcard__item swiper-slide">
+				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
+					<div class="workcard__desc">
+						<div class="workcard__desc--left">
+							<div class="workcard__desc--title">testsetsts.</div>
+							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
+						</div>
+						<div class="workcard__desc--dots">
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+						</div>
+					</div>
+					<div class="workcard__img">
+						<img src="https://images.pexels.com/photos/276267/pexels-photo-276267.jpeg" alt="">
+						<div class="workcard__img--title">testestset</div>
+					</div>
+				</a>
+			</li>
+			<li class="workcard__item swiper-slide">
+				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
+					<div class="workcard__desc">
+						<div class="workcard__desc--left">
+							<div class="workcard__desc--title">testsetsts.</div>
+							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
+						</div>
+						<div class="workcard__desc--dots">
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+						</div>
+					</div>
+					<div class="workcard__img">
+						<img src="https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg" alt="">
+						<div class="workcard__img--title">testestset</div>
+					</div>
+				</a>
+			</li>
+			<li class="workcard__item swiper-slide">
+				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
+					<div class="workcard__desc">
+						<div class="workcard__desc--left">
+							<div class="workcard__desc--title">testsetsts.</div>
+							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
+						</div>
+						<div class="workcard__desc--dots">
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+							<span class="workcard__desc--dot"></span>
+						</div>
+					</div>
+					<div class="workcard__img">
+						<img src="https://images.pexels.com/photos/4021773/pexels-photo-4021773.jpeg" alt="">
+						<div class="workcard__img--title">testestset</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
-<div class="tag step01">
-	<span class="tag__pasis-lt">/</span>
-	<span class="tag__name">span</span>
-	<span class="tag__pasis-gt"></span>
-</div> -->

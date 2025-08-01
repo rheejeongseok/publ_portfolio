@@ -20,7 +20,7 @@ function pageInit(){
 	setPage("intro");
 }
 
-function setPage(page){
+function setPage(page, isPopState = false){
 	const $body = $(".content__body");
 	
 	$.ajax({
