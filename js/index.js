@@ -24,7 +24,8 @@ function setPage(page, isPopState = false){
 	const $body = $(".content__body");
 	
 	$.ajax({
-		url:`${window.location.origin}/01newpf/html/${page}.html`
+		// url:`${window.location.origin}/01newpf/html/${page}.html`
+		url:`${window.location.origin}/rheejeongseok.github.io/making_this/html/${page}.html`
 		, dataType:'html'
 		, beforeSend: () => {
 			console.log("before")
