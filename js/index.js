@@ -23,7 +23,7 @@ function pageInit(){
 function setPage(page, isPopState = false){
 	const $body = $(".content__body");
 	const url = window.location.origin
-	const path = url.indexOf("making_this") > -1 ? "making_this" : "01newpf";
+	const path = url.indexOf("publ_portfolio") > -1 ? "publ_portfolio" : "01newpf";
 	
 	$.ajax({
 		url:`${url}/${path}/html/${page}.html`
