@@ -24,7 +24,7 @@ function setPage(page, isPopState = false){
 	const $body = $(".content__body");
 	const url = window.location.origin
 	const path = url.indexOf("github") > -1 ? "publ_portfolio" : "01newpf";
-	console.log(url, path)
+	
 	$.ajax({
 		url:`${url}/${path}/html/${page}.html`
 		, dataType:'html'
