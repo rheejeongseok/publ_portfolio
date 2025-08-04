@@ -127,7 +127,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: white;
+  background: #E9BDDE;
   position: absolute;
   top: 0;
 }
@@ -152,9 +152,9 @@ body {
 }
 .loading__bar {
   position: absolute;
-  width: 2px;
+  width: 4px;
   height: 100%;
-  background: #222;
+  background: #3d3d3d;
   -webkit-animation: loading__bar 4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
           animation: loading__bar 4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
@@ -173,9 +173,12 @@ body {
     top: -60%;
   }
   40% {
-    top: -40%;
+    top: -55%;
   }
   60% {
+    top: -50%;
+  }
+  80% {
     top: -45%;
   }
   100% {
@@ -191,9 +194,12 @@ body {
     top: -60%;
   }
   40% {
-    top: -40%;
+    top: -55%;
   }
   60% {
+    top: -50%;
+  }
+  80% {
     top: -45%;
   }
   100% {

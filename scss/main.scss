@@ -97,7 +97,7 @@ body {
 	$delay:4s;
 
 	&__pan {
-		@include wh(50%, 100%); display:flex; align-items:center; background:white; position:absolute; top:0;
+		@include wh(50%, 100%); display:flex; align-items:center; background:#E9BDDE; position:absolute; top:0;
 	}
 
 	&__left {
@@ -111,7 +111,7 @@ body {
 	}
 
 	&__bar {
-		position:absolute; @include wh(2px, 100%); background:#222;
+		position:absolute; @include wh(4px, 100%); background:#3d3d3d;
 		animation:loading__bar $delay cubic-bezier(0.250, 0.100, 0.250, 1.000) forwards;
 
 		&--left {
@@ -132,9 +132,12 @@ body {
 		top:-60%;
 	}
 	40% {
-		top:-40%;
+		top:-55%;
 	}
 	60% {
+		top:-50%;
+	}
+	80% {
 		top:-45%;
 	}
 	100% {
