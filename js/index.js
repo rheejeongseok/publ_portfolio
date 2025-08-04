@@ -22,10 +22,11 @@ function pageInit(){
 
 function setPage(page, isPopState = false){
 	const $body = $(".content__body");
+	const url = window.location.origin
+	const path = url.indexOf("making_this") > -1 ? "making_this" : "01newpf";
 	
 	$.ajax({
-		// url:`${window.location.origin}/01newpf/html/${page}.html`
-		url:`${window.location.origin}/making_this/html/${page}.html`
+		url:`${url}/${path}/html/${page}.html`
 		, dataType:'html'
 		, beforeSend: () => {
 			console.log("before")
