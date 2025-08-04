@@ -18,6 +18,12 @@ function clickEvt(){
 
 function pageInit(){
 	setPage("intro");
+
+	$('.loading__pan').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function () {
+		setTimeout(() => {
+			$(".loading").remove();
+		},1000);
+	});
 }
 
 function setPage(page, isPopState = false){

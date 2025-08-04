@@ -91,6 +91,75 @@ body {
 	@include wh(40px, 100%); background:#E9BDDE; border-radius:0 0 0 8px;
 }
 
+.loading {
+	@include pos($type:fixed, $l:0, $t:0); @include wh(100%, 100%); z-index:10; overflow:hidden;
+
+	$delay:4s;
+
+	&__pan {
+		@include wh(50%, 100%); display:flex; align-items:center; background:white; position:absolute; top:0;
+	}
+
+	&__left {
+		left:0; justify-content:flex-end; padding-right:4px;
+		animation:loading__left 1s ease-in-out forwards; animation-delay:$delay;
+	}
+
+	&__right {
+		right:0; padding-left:4px;
+		animation:loading__right 1s ease-in-out forwards; animation-delay:$delay;
+	}
+
+	&__bar {
+		position:absolute; @include wh(2px, 100%); background:#222;
+		animation:loading__bar $delay cubic-bezier(0.250, 0.100, 0.250, 1.000) forwards;
+
+		&--left {
+			right:0;
+		}
+
+		&--right {
+			left:0;
+		}
+	}
+}
+
+@keyframes loading__bar {
+	0% {
+		top:-100%;
+	}
+	20% {
+		top:-60%;
+	}
+	40% {
+		top:-40%;
+	}
+	60% {
+		top:-45%;
+	}
+	100% {
+		top:0;
+	}
+}
+
+@keyframes loading__left {
+	0% {
+		left:0;
+	}
+	100% {
+		left:-100%;
+	}
+}
+
+@keyframes loading__right {
+	0% {
+		right:0;
+	}
+	100% {
+		right:-100%;
+	}
+}
+
 .my-code {
 	display:flex; flex-direction:column; height:100vh; @include wh(1280px, 800px); background:#222; border-radius:8px;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
