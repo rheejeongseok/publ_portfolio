@@ -50,3 +50,24 @@
 	</div> <br>
 <span class="jsx__bracket__sml--gt step01"></span> <br>
 <span class="jsx__bracket__med--gt"></span>
+
+<script>
+	(function(){
+		console.log("main script running");
+		const $text = document.querySelectorAll(".text");
+		$text.forEach((e, i) => {
+			const text = e.textContent;
+			e.textContent = "";
+
+			new TypeIt(e, {
+				strings:text,
+				speed: 50,
+				startDelay: i * 1000,
+				lifeLike:true,
+				afterComplete: (e) => {
+					e.destroy();
+				}
+			}).go();
+		})
+	})();
+</script>

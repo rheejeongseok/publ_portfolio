@@ -4,30 +4,42 @@ window.addEventListener("load",() => {
 });
 
 function clickEvt(){
-	$(".page__anchor").click(e => {
-		const $this = $(e.currentTarget);
-		const pageType = $this.data("anchor");
-		setPage(pageType)
+	const $pageAnchor = document.querySelectorAll(".page__anchor");
+	$pageAnchor.forEach(anchor => {
+		anchor.addEventListener("click", e => {
+			const pageType = e.currentTarget.dataset.anchor;
+			setPage(pageType);
+		});	
 	});
 
-	$(".content__tab-btn").click(e => {
-		const $parent = $(e.currentTarget).parent();
-		$parent.addClass("on").siblings().removeClass("on");
-	})
+	const $contentTabBtn = document.querySelectorAll(".content__tab-btn");
+	$contentTabBtn.forEach(btn => {
+		btn.addEventListener("click", e => {
+			const $parent = e.currentTarget.parentElement;
+			const $active = document.querySelector(".content__tab-item.on");
+
+			if($active && $active !== $parent) $active.classList.remove("on");
+			$parent.classList.add("on");
+		});
+	});
 }
 
 function pageInit(){
 	setPage("intro");
-
-	$('.loading__pan').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function () {
-		setTimeout(() => {
-			$(".loading").remove();
-		},1000);
+	const $loading = document.querySelector(".loading");
+	const $loadingPan = document.querySelector(".loading__pan");
+	const events = ["animationend", "webkitAnimationEnd", "oAnimationEnd", "MSAnimationEnd"];
+	events.forEach(event => {
+		$loadingPan.addEventListener(event, () => {
+			setTimeout(() => {
+				if($loading) $loading.remove();
+			},1000)
+		});
 	});
 }
 
 function setPage(page, isPopState = false){
-	const $body = $(".content__body");
+	const $body = document.querySelector(".content__body");
 	const url = window.location.origin
 	const path = url.indexOf("github") > -1 ? "publ_portfolio" : "01newpf";
 	
@@ -35,18 +47,26 @@ function setPage(page, isPopState = false){
 		url:`${url}/${path}/html/${page}.html`
 		, dataType:'html'
 		, beforeSend: () => {
-			console.log("before")
-			$body.removeClass("on");
+			$body.classList.remove("on");
 		}
 		, success: (data) => {
-			console.log("ok")
-			$body.html(data);
+			$body.innerHTML = data;
 		}
 		, complete: () => {
-			console.log("end")
-			setTimeout(() => {
-				$body.addClass("on");
-			}, 100);
+				setTimeout(() => {
+					$body.classList.add("on");
+
+					const scripts = $body.querySelectorAll('script');
+					scripts.forEach(oldScript => {
+						const newScript = document.createElement('script');
+						if (oldScript.src) {
+							newScript.src = oldScript.src;
+						} else {
+							newScript.textContent = oldScript.textContent;
+						}
+						$body.appendChild(newScript);
+					});
+				}, 100);
 		}
 	});
 }

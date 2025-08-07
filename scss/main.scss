@@ -165,8 +165,8 @@ body {
 
 .my-code {
 	display:flex; flex-direction:column; height:100vh; @include wh(1280px, 800px); background:#222; border-radius:8px;
-	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-	animation:my-code-in 1s ease;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); 
+	/* opacity:0; animation:my-code-in 1s ease forwards; animation-delay:4s; */
 }
 
 @keyframes my-code-in {
