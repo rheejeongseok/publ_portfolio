@@ -164,7 +164,7 @@ body {
 }
 
 .my-code {
-	display:flex; flex-direction:column; height:100vh; @include wh(1280px, 800px); background:#222; border-radius:8px;
+	display:flex; flex-direction:column; @include wh(100%, 100%); background:#222; border-radius:8px;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); 
 	/* opacity:0; animation:my-code-in 1s ease forwards; animation-delay:4s; */
 }
@@ -314,7 +314,7 @@ body {
 	}
 
 	* {
-		line-height:20px; @include fs(14px, 400, white);
+		line-height:20px; @include fs(16px, 400, white);
 	}
 }
 
