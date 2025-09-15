@@ -94,7 +94,7 @@ body {
 .loading {
 	@include pos($type:fixed, $l:0, $t:0); @include wh(100%, 100%); z-index:10; overflow:hidden;
 
-	$delay:4s;
+	$delay:1s;
 
 	&__pan {
 		@include wh(50%, 100%); display:flex; align-items:center; background:#E9BDDE; position:absolute; top:0;
@@ -164,7 +164,7 @@ body {
 }
 
 .my-code {
-	display:flex; flex-direction:column; @include wh(100%, 100%); background:#222; border-radius:8px;
+	display:flex; flex-direction:column; @include wh(1200px, 800px); background:#222; border-radius:8px;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); 
 	/* opacity:0; animation:my-code-in 1s ease forwards; animation-delay:4s; */
 }
@@ -324,6 +324,22 @@ body {
 
 .step02 {
 	margin-left:20px;
+}
+
+.step03 {
+	margin-left:40px;
+}
+
+.text {
+	.ti-cursor {
+		display:none;
+	}
+
+	&.set {
+		.ti-cursor {
+			display:inline-block;
+		}
+	}
 }
 
 .tag {

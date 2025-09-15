@@ -25,7 +25,7 @@ function clickEvt(){
 }
 
 function pageInit(){
-	setPage("intro");
+	setPage("main");
 	const $loading = document.querySelector(".loading");
 	const $loadingPan = document.querySelector(".loading__pan");
 	const events = ["animationend", "webkitAnimationEnd", "oAnimationEnd", "MSAnimationEnd"];
