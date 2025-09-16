@@ -1,20 +1,47 @@
-<span class="md__title"># 👋 TTEESSTT</span><br><br>
-<span class="md__text">
-	testseteststsets <span class="md__text--bold">* * T E S T * *</span>
-</span> <br><br>
-<span class="md__line">---</span><br><br>
-<span class="md__title"># 💼 TTEESSTT</span><br><br>
-<span class="md__text">
-	testseteststsets <span class="md__text--bold">* * T E S T * *</span>
-</span> <br><br>
-<span class="md__line">---</span><br><br>
-<span class="md__title"># 🛠️ TTEESSTT</span><br><br>
-<span class="md__text">
-	testseteststsets <span class="md__text--bold">* * T E S T * *</span>
-</span> <br><br>
-<span class="md__line">---</span><br><br>
-<span class="md__title"># 💡 TTEESSTT</span><br><br>
-<span class="md__text">
-	testseteststsets <span class="md__text--bold">* * T E S T * *</span>
-</span> <br><br>
-<span class="md__line">---</span><br><br>
+<div class="md__box">
+	<span class="md__title"># 👋 TTEESSTT</span><br><br>
+	<span class="md__text">
+		testseteststsets <span class="md__text--bold">* * T E S T * *</span>
+	</span> 
+</div>
+<br><br>
+<div class="md__box">
+	<span class="md__line">---</span><br><br>
+	<span class="md__title"># 💼 TTEESSTT</span><br><br>
+	<span class="md__text">
+		testseteststsets <span class="md__text--bold">* * T E S T * *</span>
+	</span> 
+</div>
+<br><br>
+<div class="md__box">
+	<span class="md__line">---</span><br><br>
+	<span class="md__title"># 🛠️ TTEESSTT</span><br><br>
+	<span class="md__text">
+		testseteststsets <span class="md__text--bold">* * T E S T * *</span>
+	</span> 
+</div>
+<br><br>
+<div class="md__box">
+	<span class="md__line">---</span><br><br>
+	<span class="md__title"># 💡 TTEESSTT</span><br><br>
+	<span class="md__text">
+		testseteststsets <span class="md__text--bold">* * T E S T * *</span>
+	</span> 
+</div>
+<br><br>
+
+
+<script>
+	(function(){
+		const $boxes = document.querySelectorAll(".md__box");
+		
+		async function setBoxes(){
+			for(const box of $boxes){
+				box.classList.add("set");
+				await new Promise(r => setTimeout(r, 300));
+			}
+		}
+		
+		setBoxes();
+	})();
+</script>

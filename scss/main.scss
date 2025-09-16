@@ -332,12 +332,12 @@ body {
 
 .text {
 	.ti-cursor {
-		display:none;
+		display:none !important;
 	}
 
 	&.set {
 		.ti-cursor {
-			display:inline-block;
+			display:inline-block !important;
 		}
 	}
 }
@@ -421,6 +421,14 @@ body {
 }
 
 .md {
+	&__box {
+		opacity:0; transition:0.3s;
+
+		&.set {
+			opacity:1;
+		}
+	}
+
 	&__title {
 		color:#e45649;
 	}

@@ -1,4 +1,4 @@
-<span class="jsx__comment">// ===============================</span> <br>
+<!-- <span class="jsx__comment">// ===============================</span> <br>
 <span class="jsx__comment">// main.jsx</span> <br>
 <span class="jsx__comment">// ===============================</span> <br><br><br>
 <span class="jsx__comment">// 🧑‍💻 이정석 JeongSeok Rhee</span> <br>
@@ -6,7 +6,7 @@
 <span class="jsx__comment">// 단단하게 오래, 조용히 묵묵하게, 한 브랜드의 흐름을 지켜왔습니다.</span> <br><br>
 <span class="jsx__comment">// 기획서를 읽고 의도를 해석하고,</span> <br>
 <span class="jsx__comment">// 디자인을 보고 구조를 상상하고,</span> <br>
-<span class="jsx__comment">// 개발자와는 구조와 성능을 이야기합니다.</span> <br><br>
+<span class="jsx__comment">// 개발자와는 구조와 성능을 이야기합니다.</span> <br><br> -->
 <span class="jsx__cmn">export default function</span> <span class="jsx__fnc">Main</span><span class="jsx__bracket__sml--lt"></span><span class="jsx__bracket__sml--gt"></span> <span class="jsx__bracket__med--lt"></span> <br>
 <span class="jsx__cmn step01">return</span> <span class="jsx__bracket__sml--lt"></span> <br>
 	<div class="tag step02 inline">
@@ -18,7 +18,8 @@
 		</span>
 		<span class="tag__pasis-gt"></span>
 	</div>
-	<span class="text">저는 7년차 웹 퍼블리셔, 이정석입니다!</span>
+	<!-- <span class="text">저는 7년차 웹 퍼블리셔, 이정석입니다!</span> -->
+	<span class="text">땅따라라다라ㅏ땅땅뚜루루당</span>
 	<div class="tag inline">
 		<span class="tag__pasis-lt">/</span>
 		<span class="tag__name">div</span>
@@ -76,24 +77,51 @@
 	(function(){
 		console.log("main script running");
 		const $text = document.querySelectorAll(".text");
-		$text.forEach((e, i) => {
+		const typeArr = Array.from($text).map((e,i) => {
 			const text = e.textContent;
 			e.textContent = "";
 
-			new TypeIt(e, {
-				strings:text,
-				speed: 100,
-				startDelay: i * 2000,
-				lifeLike:true,
+			return new TypeIt(e, {
+				strings: text,
+				speed: 50,
+				startDelay:500,
+				lifeLike: true,
 				beforeString: () => {
-					console.log(e.classList)
 					e.classList.add("set");
 				},
-				afterComplete: (e) => {
-					e.destroy();
-					console.log(e)
-				}
-			}).go();
-		})
+				afterComplete: (instance) => {
+					instance.destroy();
+					const next = typeArr[i + 1];
+					if (next) next.go();
+				},
+			});
+		});
+
+		typeArr[0].go();
+
+		/* console.log(test)
+		$text.forEach((el, i) => {
+			const text = el.textContent;
+			el.textContent = "";
+
+			testArr.push(
+				new TypeIt(el, {
+					strings: text,
+					speed: 50,
+					startDelay:500,
+					lifeLike: true,
+					beforeStep: () => {
+						el.classList.add("set");
+					},
+					afterComplete: (instance) => {
+						instance.destroy();
+						const next = testArr[i + 1];
+						if (next) next.go();
+					},
+				})
+			);
+		});
+
+		if (testArr[0]) testArr[0].go(); */
 	})();
 </script>

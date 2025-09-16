@@ -25,7 +25,6 @@ function clickEvt(){
 }
 
 function pageInit(){
-	setPage("main");
 	const $loading = document.querySelector(".loading");
 	const $loadingPan = document.querySelector(".loading__pan");
 	const events = ["animationend", "webkitAnimationEnd", "oAnimationEnd", "MSAnimationEnd"];
@@ -33,14 +32,17 @@ function pageInit(){
 		$loadingPan.addEventListener(event, () => {
 			setTimeout(() => {
 				if($loading) $loading.remove();
-			},1000)
+			},1000);
 		});
 	});
+
+	setPage("about");
 }
 
 function setPage(page, isPopState = false){
 	const $body = document.querySelector(".content__body");
-	const url = window.location.origin
+	const $onTab = document.querySelector(`.content__tab-wrap .page__anchor[data-anchor=${page}]`).closest(".content__tab-item");
+	const url = window.location.origin;
 	const path = url.indexOf("github") > -1 ? "publ_portfolio" : "01newpf";
 	
 	$.ajax({
@@ -51,6 +53,7 @@ function setPage(page, isPopState = false){
 		}
 		, success: (data) => {
 			$body.innerHTML = data;
+			$onTab.classList.add("on");
 		}
 		, complete: () => {
 				setTimeout(() => {

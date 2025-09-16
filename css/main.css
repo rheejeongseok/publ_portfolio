@@ -527,10 +527,10 @@ body {
 }
 
 .text .ti-cursor {
-  display: none;
+  display: none !important;
 }
 .text.set .ti-cursor {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .tag {
@@ -617,6 +617,14 @@ body {
   color: #e7cf1c;
 }
 
+.md__box {
+  opacity: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.md__box.set {
+  opacity: 1;
+}
 .md__title {
   color: #e45649;
 }
