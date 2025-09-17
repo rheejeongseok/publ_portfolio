@@ -1,81 +1,205 @@
 <script>
 	(function(){
 		console.log("Script running");
-
-		const worklistSwiper = new Swiper(".workcard__swiper", {
-			// freeMode:true,
-			slidesPerView: "auto",
-			spaceBetween: 20,
-			on : {
-				init: () => {
-					console.log("Swiper test");
-				}
-			}
-		});
+		const $popup = document.querySelector(".popup");
+		setTimeout(function(){
+			$popup.classList.add("full");
+		},500);
 	})();
 </script>
-<!-- https://fabrica.framer.media/ -->
-<div class="workcard">
-	<div class="workcard__title">testsetsts</div>
-	<div class="workcard__swiper swiper">
-		<ul class="workcard__list swiper-wrapper">
-			<li class="workcard__item swiper-slide">
-				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
-					<div class="workcard__desc">
-						<div class="workcard__desc--left">
-							<div class="workcard__desc--title">testsetsts.</div>
-							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
-						</div>
-						<div class="workcard__desc--dots">
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-						</div>
-					</div>
-					<div class="workcard__img">
-						<img src="https://images.pexels.com/photos/276267/pexels-photo-276267.jpeg" alt="">
-						<div class="workcard__img--title">testestset</div>
-					</div>
-				</a>
-			</li>
-			<li class="workcard__item swiper-slide">
-				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
-					<div class="workcard__desc">
-						<div class="workcard__desc--left">
-							<div class="workcard__desc--title">testsetsts.</div>
-							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
-						</div>
-						<div class="workcard__desc--dots">
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-						</div>
-					</div>
-					<div class="workcard__img">
-						<img src="https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg" alt="">
-						<div class="workcard__img--title">testestset</div>
-					</div>
-				</a>
-			</li>
-			<li class="workcard__item swiper-slide">
-				<a href="javascript:;" class="workcard__link" data-anchor="work_ah">
-					<div class="workcard__desc">
-						<div class="workcard__desc--left">
-							<div class="workcard__desc--title">testsetsts.</div>
-							<div class="workcard__desc--tags">#test&nbsp;&nbsp;#test&nbsp;&nbsp;#test</div>
-						</div>
-						<div class="workcard__desc--dots">
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-							<span class="workcard__desc--dot"></span>
-						</div>
-					</div>
-					<div class="workcard__img">
-						<img src="https://images.pexels.com/photos/4021773/pexels-photo-4021773.jpeg" alt="">
-						<div class="workcard__img--title">testestset</div>
-					</div>
-				</a>
-			</li>
-		</ul>
+
+<div class="popup popup--workDetail">
+	<div class="popup__inn">
+		<img src="/01newpf/images/hot1733111588497.jpg" alt="">
 	</div>
+</div>
+
+<div class="tag inline">
+	<span class="tag__pasis--lt"></span>
+	<span class="tag__name">h1</span>
+	<span class="tag__pasis--gt"></span>
+</div>
+<span class="text">work_list</span>
+<div class="tag inline">
+	<span class="tag__pasis--lt">/</span>
+	<span class="tag__name">h1</span>
+	<span class="tag__pasis--gt"></span>
+</div>
+<br><br>
+
+<div class="tag">
+	<span class="tag__pasis--lt"></span>
+	<span class="tag__name">ul</span>
+	<span class="tag__pasis--gt"></span>
+</div>
+	
+	<div class="tag step01">
+		<span class="tag__pasis--lt"></span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+		<div class="work__link">
+			<div class="tag inline step02">
+				<span class="tag__pasis--lt"></span>
+				<span class="tag__name">a</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">href=</span>
+					<span class="tag__attr--val">"#"</span>
+				</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">onclick=</span>
+					<span class="tag__attr--val">"showProject('project_name')"</span>
+				</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+			<span class="text">project_name</span>
+			<div class="tag inline">
+				<span class="tag__pasis--lt">/</span>
+				<span class="tag__name">a</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+		</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt">/</span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt"></span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+		<div class="work__link">
+			<div class="tag inline step02">
+				<span class="tag__pasis--lt"></span>
+				<span class="tag__name">a</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">href=</span>
+					<span class="tag__attr--val">"#"</span>
+				</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">onclick=</span>
+					<span class="tag__attr--val">"showProject('project_name')"</span>
+				</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+			<span class="text">project_name</span>
+			<div class="tag inline">
+				<span class="tag__pasis--lt">/</span>
+				<span class="tag__name">a</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+		</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt">/</span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt"></span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+		<div class="work__link">
+			<div class="tag inline step02">
+				<span class="tag__pasis--lt"></span>
+				<span class="tag__name">a</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">href=</span>
+					<span class="tag__attr--val">"#"</span>
+				</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">onclick=</span>
+					<span class="tag__attr--val">"showProject('project_name')"</span>
+				</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+			<span class="text">project_name</span>
+			<div class="tag inline">
+				<span class="tag__pasis--lt">/</span>
+				<span class="tag__name">a</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+		</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt">/</span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt"></span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+		<div class="work__link">
+			<div class="tag inline step02">
+				<span class="tag__pasis--lt"></span>
+				<span class="tag__name">a</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">href=</span>
+					<span class="tag__attr--val">"#"</span>
+				</span>
+				<span class="tag__attr">
+					<span class="tag__attr--nm">onclick=</span>
+					<span class="tag__attr--val">"showProject('project_name')"</span>
+				</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+			<span class="text">project_name</span>
+			<div class="tag inline">
+				<span class="tag__pasis--lt">/</span>
+				<span class="tag__name">a</span>
+				<span class="tag__pasis--gt"></span>
+			</div>
+		</div>
+	<div class="tag step01">
+		<span class="tag__pasis--lt">/</span>
+		<span class="tag__name">li</span>
+		<span class="tag__pasis--gt"></span>
+	</div>
+	
+<div class="tag">
+	<span class="tag__pasis--lt">/</span>
+	<span class="tag__name">ul</span>
+	<span class="tag__pasis--gt"></span>
+</div>
+<br><br>
+<div class="tag">
+	<span class="tag__pasis--lt"></span>
+	<span class="tag__name">script</span>
+	<span class="tag__pasis--gt"></span>
+</div>
+	<div class="function step01">
+		<div class="function__box">
+			<span class="function__function">function</span>
+			<span class="function__name">showProjects</span>
+			<span class="function__pasis--lt"></span>
+			<span class="function__param">name</span>
+			<span class="function__pasis--gt"></span>
+			<span class="function__pasis--lt--big"></span>
+		</div>
+			<div class="function__box">
+				<span class="function__c function__c--orange step01">const</span>
+				<span class="function__c function__c--white">&nbsp;$popup</span>
+				<span class="function__c function__c--gray">&nbsp;=&nbsp;</span>
+				<span class="function__c function__c--gray">document.</span>
+				<span class="function__c function__c--yellow">querySelector(</span>
+				<span class="function__c function__c--white">name</span>
+				<span class="function__c function__c--yellow">)</span>
+				<span class="function__c function__c--white">;</span>
+			</div>
+			<div class="function__box">
+				<span class="function__c function__c--white step01">$popup.style.display</span>
+				<span class="function__c function__c--gray">&nbsp;=&nbsp;</span>
+				<span class="function__c function__c--yellow">"block"</span>
+				<span class="function__c function__c--white">;</span>
+			</div>
+		<div class="function__box">
+			<span class="function__pasis--gt--big"></span>
+		</div>
+	</div>
+<div class="tag">
+	<span class="tag__pasis--lt">/</span>
+	<span class="tag__name">script</span>
+	<span class="tag__pasis--gt"></span>
 </div>

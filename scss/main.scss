@@ -353,13 +353,13 @@ body {
 		display:inline-flex;
 	}
 
-	&__pasis-lt {
+	&__pasis--lt {
 		&::before {
 			content:'<';
 		}
 	}
 
-	&__pasis-gt {
+	&__pasis--gt {
 		&::before {
 			content:'>';
 		}
@@ -369,11 +369,83 @@ body {
 		@include fs(14px, 400, #da9862);
 	}
 
-	&__class {
+	&__attr {
 		@include fs(14px, 400, white); margin-left:6px;
 
 		&--val {
 			@include fs(14px, 400, #e7cf1c);
+		}
+	}
+}
+
+.work__link {
+	cursor:pointer;
+}
+
+.function {
+	font-size:14px; color:white; display:flex; flex-direction:column;
+
+	&::before {
+		font-size:14px; color:white;
+	}
+
+	&.inline {
+		display:inline-flex;
+	}
+
+	&__pasis--lt {
+		&::before {
+			content:'(';
+		}
+	}
+
+	&__pasis--gt {
+		&::before {
+			content:')';
+		}
+	}
+
+	&__pasis--lt--big {
+		&::before {
+			content:'{';
+		}
+	}
+
+	&__pasis--gt--big {
+		&::before {
+			content:'}';
+		}
+	}
+
+	&__function {
+		@include fs(14px, 400, #da9862);
+	}
+
+	&__name {
+		@include fs(14px, 400, #e7cf1c);
+	}
+
+	&__param {
+		@include fs(14px, 400, white);
+	}
+
+	&__c {
+		font-size:14px; font-weight:400;
+
+		&--orange {
+			color:#da9862;
+		}
+
+		&--white {
+			color:white;
+		}
+
+		&--gray {
+			color:#a5a5a5;
+		}
+
+		&--yellow {
+			color:#e7cf1c;
 		}
 	}
 }
@@ -422,7 +494,7 @@ body {
 
 .md {
 	&__box {
-		opacity:0; transition:0.3s;
+		opacity:0; transition:2s;
 
 		&.set {
 			opacity:1;
@@ -474,11 +546,16 @@ body {
 	}
 
 	&__swiper {
-		width:100%; overflow:hidden;
+		width:100%; height:100%; overflow:hidden;
+	}
+
+	&__list {
+		flex-wrap:wrap;
 	}
 
 	&__item {
-		width:700px; 
+		// width:700px;
+		flex:1;
 	}
 
 	&__link {
@@ -538,8 +615,41 @@ body {
 	}
 }
 
+.project {
+	&__img {
+		width:100%; object-fit:cover; aspect-ratio:16/9;
+	}
+}
+
+.popup {
+	@include pos($type:fixed, $t:0, $l:0); @include wh(100%, 100%);
+
+	&::before {
+		content:''; @include wh(100%, 100%); transform:scale(0.1); transition:0.5s; border-radius:50%; opacity:0; @include pos($type:absolute, $t:0, $l:0); background:blue; z-index:-1; mix-blend-mode:soft-light;
+	}
+
+	&.full {
+
+		&::before {
+			transform:scale(2); opacity:1;
+		}
+	}
+	
+	&.full &__inn {
+		opacity:1;
+	}
+
+	&__inn {
+		opacity:0; transition:opacity 0.5s; transition-delay:0.5s; @include wh(100%, 100%); @include flx();
+	}
+
+	img {
+		width:400px; aspect-ratio:1;
+	}
+}
+
 .wavy {
-	@include pos($type:absolute, $l:50%, $t:50%, $trans:translate(-50%, -50%));
+	@include pos($type:absolute, $l:50%, $t:50%, $trans:translate(-50%, -50%)); width:100%; text-align:center;
 
 	span {
 		@include fs(24px, 700, white); animation:wavy 2s infinite ease-in-out; display:inline-block;

@@ -1,15 +1,15 @@
-<h1 class="wavy">나는키드밀리~차가밀리~</h1>
+<h1 class="wavy">진짜 말 많다 닥쳐ㅕㅕㅕㅕㅕㅕ 아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</h1>
 
 <script>
 	(function(){
 		console.log("Script running");
 
 		const $wavy = $(".wavy");
-		const aa = $wavy.text().split("");
+		const aa = $wavy.text().split(" ");
 		$wavy.empty().append(
 			aa.map((a, i) => {
 				return `<span style="animation-delay:${i * 0.05}s">${a}</span>`;
-			}).join("")
+			}).join(" ")
 		);
 	})();
 </script>
