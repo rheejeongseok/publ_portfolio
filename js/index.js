@@ -41,7 +41,7 @@ function pageInit(){
 	});
 
 	document.addEventListener("loadingRemove", () => {
-		setPage("work_list");
+		setPage("intro");
 	});
 
 }
