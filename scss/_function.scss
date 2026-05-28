@@ -45,7 +45,7 @@
 
 @mixin fs($size, $weight:$F_LIGHT, $color:#222, $lh:null){
 	
-	@if unit($size) == "px"{
+	@if math.unit($size) == "px"{
 		font-size:$size;	
 	}@else {
 		font-size:vw_mo($size);
@@ -59,13 +59,13 @@
 
 @mixin wh($w, $h){
 
-	@if unit($w) == "%" or unit($w) == "px" {
+	@if math.unit($w) == "%" or math.unit($w) == "px" {
 		width:$w;
 	}@else {
 		width:vw_mo($w);
 	}
 
-	@if unit($h) == "%" or unit($h) == "px" {
+	@if math.unit($h) == "%" or math.unit($h) == "px" {
 		height:$h;
 	}@else {
 		height:vw_mo($h);
@@ -82,7 +82,7 @@
 // 보더 값
 
 @mixin border($size, $type, $color){
-	@if unit($size) == "px" {
+	@if math.unit($size) == "px" {
 		border: $size $type $color;
 	}@else {
 		border: vw_mo($size) $type $color;

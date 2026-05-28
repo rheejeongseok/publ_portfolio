@@ -1,5 +1,5 @@
-@import "_variable";
-@import "_function";
+@use "variable" as *;
+@use "function" as *;
 
 /* @font-face {
   font-family: 'RobotoMono';
